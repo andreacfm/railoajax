@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="RailoAjax UI" default="compile">
+	
+	<!-- update build properties -->
+	<propertyfile file="build.properties">
+		<entry key="build.number" type="int" operation="+" value="1" pattern="00"/>
+		<entry key="build.date" type="date" pattern="EEEE MMM dd, yyyy" value="now"/>
+		<entry key="build.time" type="date" pattern="kk:mm:ss" value="now"/>
+		<entry key="build.timestamp" type="date" pattern="yyyy-MM-dd'T'HH:mm:ss" value="now"/>
+		<entry key="build.year" type="date" pattern="yyyy" value="now"/>
+	</propertyfile>	
+		
+	<!-- project properties -->
+	<property file="project.properties"/>
+	
+	<!-- build properties -->	
+	<property file="build.properties"/>	
+
+	<!-- yui compressor -->
+	<property name="yui-compressor.jar" location="${project.libs}/yuicompressor-2.4.2.jar" />
+	<property name="yui-compressor-ant-task.jar" location="${project.libs}/yui-compressor-ant-task-0.4.jar" />
+
+	<path id="yuiTask.classpath">
+		<pathelement location="${yui-compressor.jar}" />
+		<pathelement location="${yui-compressor-ant-task.jar}" />
+	</path>	
+	
+			
+	<!-- copy the source not compressed to the build folder -->	
+	<target name="jsSource">
+		
+		<echo message="Copying uncompressed js source files to ${project.buildPath}/source"/>
+
+		<copy todir="${project.buildPath}/source/js" overwrite="true">
+			<fileset dir="${basedir}/tags/org/railoajax/libs/js/"/>
+		</copy>
+
+		
+	</target>
+
+	<!-- copy the release notes
+	<target name="releaseNotes">
+		
+		<echo message="Copying release notes from ${basedir}/release.txt  to  ${project.buildPath}/release/"/>
+		
+		<copy todir="${project.buildPath}/release/" overwrite="true">
+			<fileset dir="${basedir}/release/" />
+		</copy>
+				
+	</target> -->	
+
+	
+	<!-- deploy -->	
+	<target name="deploy">	
+
+		<echo message="make temp base dir"/>	
+		<mkdir dir="${basedir}/temp" />		
+		<mkdir dir="${basedir}/temp/uncompressed" />		
+		<mkdir dir="${basedir}/temp/compressed"/>
+		<mkdir dir="${basedir}/temp/tags"/>
+		<mkdir dir="${basedir}/temp/extension"/>
+
+		<echo message="Copying to temp tags location"/>
+		
+		<echo message="UI"></echo>
+		<copy todir="${basedir}/temp/tags">
+			<fileset dir="${basedir}/tags"/>
+		</copy>	
+		
+		<echo message=" Keep railo/commons/html path for back compatibility"/>
+		<copy todir="${basedir}/temp/tags/railo/commons/html/" overwrite="true">
+			<fileset dir="${basedir}/temp/tags/org/railoajax/"/>
+		</copy>
+
+		
+		<echo message="Deploying to local railo install before compress ( server admin )."/>
+		<copy todir="${project.railoLib}/library/tag" overwrite="true">
+			<fileset dir="${basedir}/temp/tags/"/>
+		</copy>
+						
+		<taskdef name="yui-compressor" classname="net.noha.tools.ant.yuicompressor.tasks.YuiCompressorTask">
+  			<classpath refid="yuiTask.classpath" />
+		</taskdef>
+	
+		
+		<echo message="Compressing js files."/>
+		
+		<copy todir="${basedir}/temp/uncompressed">
+			<fileset dir="${basedir}/temp/tags/org/railoajax/libs/js/">
+				<include name="RailoWindow.js"/>
+				<include name="RailoLayout.js"/>
+				<include name="RailoMap.js"/>
+			</fileset>	
+		</copy>
+
+		<copy todir="${basedir}/temp/uncompressed">
+			<fileset dir="${basedir}/temp/tags/org/railoajax/libs/js/ext/" includes="ext.window.js" />
+		</copy>
+
+		<copy todir="${basedir}/temp/uncompressed">
+			<fileset dir="${basedir}/temp/tags/org/railoajax/libs/js/jquery/" includes="jquery.window.js,jquery.layout.js" />
+		</copy>
+		
+		<yui-compressor 
+   	 		warn="false" 
+    		munge="true" 
+    		jsSuffix=".js" 
+    		preserveallsemicolons="false" 
+    		fromdir="${basedir}/temp/uncompressed" 
+    		todir="${basedir}/temp/compressed"/>
+
+		<concat destfile="${basedir}/temp/tags/org/railoajax/libs/js/RailoLayout.js">
+			<fileset dir="${project.src}/template" includes="license.txt"/>
+			<fileset dir="${basedir}/temp/compressed" includes="RailoLayout.js"/>	
+		</concat>
+
+		<concat destfile="${basedir}/temp/tags/org/railoajax/libs/js/RailoWindow.js">
+			<fileset dir="${project.src}/template" includes="license.txt"/>
+			<fileset dir="${basedir}/temp/compressed" includes="RailoWindow.js"/>	
+		</concat>
+		
+		<concat destfile="${basedir}/temp/tags/org/railoajax/libs/js/jquery/jquery.window.js">
+			<fileset dir="${project.src}/template" includes="license.txt"/>
+			<fileset dir="${basedir}/temp/compressed" includes="jquery.window.js"/>	
+		</concat>
+
+		<concat destfile="${basedir}/temp/tags/org/railoajax/libs/js/jquery/jquery.layout.js">
+			<fileset dir="${project.src}/template" includes="license.txt"/>
+			<fileset dir="${basedir}/temp/compressed" includes="jquery.layout.js"/>	
+		</concat>
+
+		<concat destfile="${basedir}/temp/tags/org/railoajax/libs/js/ext/ext.window.js">
+			<fileset dir="${project.src}/template" includes="license.txt"/>
+			<fileset dir="${basedir}/temp/compressed" includes="ext.window.js"/>	
+		</concat>
+			
+		<echo message="Deploying to build path."/>
+				
+		<copy todir="${project.buildPath}/tags" overwrite="true">
+			<fileset dir="${basedir}/temp/tags/"/>
+		</copy>
+
+		<echo message="Replacing properties in ${project.buildPath}"/>
+		
+		<replace dir="${project.buildPath}">
+			<replacefilter token="@number" value="${build.number}"/>
+			<replacefilter token="@projectName" value="${build.projectName}"/>
+			<replacefilter token="@date" value="${build.date}"/>
+			<replacefilter token="@projectUrl" value="${build.projectUrl}"/>
+			<replacefilter token="@projectVersion" value="${build.projectVersion}"/>
+			<replacefilter token="@authorEmail" value="${build.authorEmail}"/>
+			<replacefilter token="@author" value="${build.author}"/>
+			<replacefilter token="@year" value="${build.year}"/>
+		</replace>
+		
+		<delete dir="${basedir}/temp"/>	
+				
+	</target>
+	
+	<!-- prepare the extension provider -->
+	<target name="extension">
+
+		<echo message="Check that /extension path exists"/>
+		<mkdir dir="${project.extensionProvider}/ext/railoajax/" />
+
+		<echo message="Building Extension"/>		
+		<copy todir="${project.extensionProvider}" overwrite="true">
+			<fileset dir="${project.src}/extensionProvider/" includes="extensionProvider.cfc" />
+		</copy>
+		
+		<echo message="copy archive to temp"/>
+		<copy todir="${basedir}/temp/extension">
+			<fileset dir="${project.src}/extensionProvider/extension/archive"/>		
+		</copy>	 
+
+		<echo message="Make tags zip"/>
+		<zip destfile="${basedir}/temp/extension/tags.zip">
+			<fileset dir="${project.buildPath}/tags" excludes="*.svn"/>
+		</zip>
+		
+		<echo message="Make demos zip"/>
+		<zip destfile="${basedir}/temp/extension/demos.zip">
+			<fileset dir="${project.src}/tests"/>
+		</zip>
+		
+		<echo message="copy the logo"/>
+		<copy todir="${project.extensionProvider}/ext/railoajax">
+			<fileset dir="${project.src}/extensionProvider/extension" includes="railoajax.jpg"/>		
+		</copy>	 
+				
+		<echo message="Zip the whole archive"/>
+		<zip destfile="${project.extensionProvider}/ext/railoajax/org.railoajax.ui.zip">
+			<fileset dir="${basedir}/temp/extension/" excludes="*.svn"/>
+		</zip>
+
+		<echo message="ReMake tags zip"/>
+		<zip destfile="${basedir}/temp/extension/tags.zip">
+			<fileset dir="${project.buildPath}/tags" excludes="*.svn"/>
+			<fileset dir="${project.lastFull}" excludes="*.svn"/>
+		</zip>
+		
+		<echo message="ReZip the whole archive as full"/>
+		<zip destfile="${project.extensionProvider}/ext/railoajax/org.railoajax.full.zip">
+			<fileset dir="${basedir}/temp/extension/" excludes="*.svn"/>
+		</zip>
+			
+		<echo message="Replacing properties in ${project.extensionProvider}"/>	
+		<replace dir="${project.extensionProvider}">
+			<replacefilter token="@number" value="${build.number}"/>
+			<replacefilter token="@projectName" value="${build.projectName}"/>
+			<replacefilter token="@projectLabel" value="${build.projectLabel}"/>
+			<replacefilter token="@date" value="${build.date}"/>
+			<replacefilter token="@projectUrl" value="${build.projectUrl}"/>
+			<replacefilter token="@projectVersion" value="${build.projectVersion}"/>
+			<replacefilter token="@authorEmail" value="${build.authorEmail}"/>
+			<replacefilter token="@author" value="${build.author}"/>
+			<replacefilter token="@year" value="${build.year}"/>
+		</replace>
+		
+		<echo message="copy to the provider.local location" />
+		<copy todir="${project.provider.local}">
+			<fileset dir="${project.extensionProvider}/" excludes="*.svn"/>
+		</copy>
+
+		<delete dir="${basedir}/temp"/>	
+		
+	</target>
+	
+	
+	<target name="restartRailo" description="Restarts the Railo server.">
+
+		<get
+	     src="http://${server.name}:${server.port}/server/railo_restart.cfm?admin_password=${admin.password}"
+	     dest="${project.wwwroot}/server/temp/restart_output.txt"/>
+	  
+		<loadfile property="restart.status" srcFile="${project.wwwroot}/server/temp/restart_output.txt"/>
+
+	  	<echo message="Restart status: ${restart.status}"/>
+
+	  	<delete file="${project.wwwroot}/server/temp/restart_output.txt"/>
+	
+	</target>
+	
+	<target 
+		name="compile" 
+		depends="jsSource,deploy,extension,restartRailo" />
+	
+
+</project>
+

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="RailoAjax" default="compile">
+	
+	<!-- update build properties -->
+	<propertyfile file="build.properties">
+		<entry key="build.number" type="int" operation="+" value="1" pattern="00"/>
+		<entry key="build.date" type="date" pattern="EEEE MMM dd, yyyy" value="now"/>
+		<entry key="build.time" type="date" pattern="kk:mm:ss" value="now"/>
+		<entry key="build.timestamp" type="date" pattern="yyyy-MM-dd'T'HH:mm:ss" value="now"/>
+		<entry key="build.year" type="date" pattern="yyyy" value="now"/>
+	</propertyfile>	
+		
+	<!-- project properties -->
+	<property file="project.properties"/>
+	
+	<!-- build properties -->	
+	<property file="build.properties"/>	
+
+	<!-- yui compressor -->
+	<property name="yui-compressor.jar" location="${project.libs}/yuicompressor-2.4.2.jar" />
+	<property name="yui-compressor-ant-task.jar" location="${project.libs}/yui-compressor-ant-task-0.4.jar" />
+
+	<path id="yuiTask.classpath">
+		<pathelement location="${yui-compressor.jar}" />
+		<pathelement location="${yui-compressor-ant-task.jar}" />
+	</path>	
+	
+	
+	<!-- setup -->
+	<target name="setup">
+		<mkdir dir="${basedir}/temp" />		
+		<mkdir dir="${basedir}/temp/uncompressed" />		
+		<mkdir dir="${basedir}/temp/compressed"/>
+		<mkdir dir="${basedir}/temp/tag"/>
+		<mkdir dir="${basedir}/temp/function"/>
+	</target>
+	
+
+	<!-- copy the source not compressed to the build folder -->	
+	<target name="jsSource">
+		<echo message="Copying uncompressed js source files to ${project.buildPath}/source"/>
+		<copy todir="${basedir}/source/" overwrite="true">
+			<fileset dir="${basedir}/tag/railo/core/ajax/js/"/>
+		</copy>
+	</target>
+	
+	
+	<!-- deploy -->	
+	<target name="deploy">	
+		
+		
+		<echo message="Copying to temp tags location"/>
+
+		<copy todir="${basedir}/temp/tag">
+			<fileset dir="${basedir}/tag"/>
+		</copy>	
+
+		<echo message="Copying to temp function location"/>
+
+		<copy todir="${basedir}/temp/function">
+			<fileset dir="${basedir}/function"/>
+		</copy>	
+
+		<echo message="Deploying to local railo install before compress ( server admin : ${project.railoLib}/library/tag )."/>		
+
+		<copy todir="${project.railoLib}/library/tag" overwrite="true">
+			<fileset dir="${basedir}/temp/tag/"/>
+		</copy>
+
+		<copy todir="${project.railoLib}/library/function" overwrite="true">
+			<fileset dir="${basedir}/temp/function/"/>
+		</copy>
+				
+		
+		<taskdef name="yui-compressor" classname="net.noha.tools.ant.yuicompressor.tasks.YuiCompressorTask">
+  			<classpath refid="yuiTask.classpath" />
+		</taskdef>
+	
+		<echo message="Compressing js files."/>
+		
+		<copy todir="${basedir}/temp/uncompressed">
+			<fileset dir="${basedir}/temp/tag/railo/core/ajax/js/">
+				<include name="*.js"/>
+			</fileset>				
+			<fileset dir="${basedir}/temp/tag/railo/core/ajax/js/google">
+				<include name="*.js"/>
+			</fileset>							
+		</copy>
+		
+		<yui-compressor 
+   	 		warn="false" 
+    		munge="true" 
+    		jsSuffix=".js" 
+    		preserveallsemicolons="false" 
+    		fromdir="${basedir}/temp/uncompressed" 
+    		todir="${basedir}/temp/compressed"/>
+
+		
+		<echo message="Copy compressed files"/>		
+		<copy todir="${basedir}/temp/tag/railo/core/ajax/js" overwrite="true">
+			<fileset dir="${basedir}/temp/compressed" includes="RailoAjax.js"/>
+		</copy>	
+
+		<copy todir="${basedir}/temp/tag/railo/core/ajax/js" overwrite="true">
+			<fileset dir="${basedir}/temp/compressed" includes="RailoMap.js"/>
+		</copy>	
+
+		<copy todir="${basedir}/temp/tag/railo/core/ajax/js/google" overwrite="true">
+			<fileset dir="${basedir}/temp/compressed" includes="google-map.js"/>
+		</copy>	
+
+		<echo message="Deploying to build path"/>		
+		<copy todir="${project.buildPath}/tag" overwrite="true">
+			<fileset dir="${basedir}/temp/tag/"/>
+		</copy>
+
+		<copy todir="${project.buildPath}/function" overwrite="true">
+			<fileset dir="${basedir}/temp/function/"/>
+		</copy>
+			
+				
+	</target>
+
+	
+	<!-- teardown -->
+	<target name="teardown">
+		<delete dir="${basedir}/temp"/>	
+	</target>
+
+	
+	<target name="restartRailo" description="Restarts the Railo server.">
+
+		<get
+	     src="http://${server.name}:${server.port}/server/railo_restart.cfm?admin_password=${admin.password}"
+	     dest="${project.wwwroot}/server/temp/restart_output.txt"/>
+	  
+		<loadfile property="restart.status" srcFile="${project.wwwroot}/server/temp/restart_output.txt"/>
+
+	  	<echo message="Restart status: ${restart.status}"/>
+
+	  	<delete file="${project.wwwroot}/server/temp/restart_output.txt"/>
+	
+	</target>
+	
+	<target 
+		name="compile" 
+		depends="setup,jsSource,deploy,teardown,restartRailo" />
+	
+
+</project>
+
