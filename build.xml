@@ -35,30 +35,20 @@
 		<mkdir dir="${basedir}/temp/function"/>
 	</target>
 	
-
-	<!-- copy the source not compressed to the build folder -->	
-	<target name="jsSource">
-		<echo message="Copying uncompressed js source files to ${project.buildPath}/source"/>
-		<copy todir="${basedir}/source/" overwrite="true">
-			<fileset dir="${basedir}/tag/railo/core/ajax/js/"/>
-		</copy>
-	</target>
-	
-	
+		
 	<!-- deploy -->	
 	<target name="deploy">	
-		
-		
+			
 		<echo message="Copying to temp tags location"/>
 
 		<copy todir="${basedir}/temp/tag">
-			<fileset dir="${basedir}/tag"/>
+			<fileset dir="${project.src}/tag"/>
 		</copy>	
 
 		<echo message="Copying to temp function location"/>
 
 		<copy todir="${basedir}/temp/function">
-			<fileset dir="${basedir}/function"/>
+			<fileset dir="${project.src}/function"/>
 		</copy>	
 
 		<echo message="Deploying to local railo install before compress ( server admin : ${project.railoLib}/library/tag )."/>		
@@ -144,7 +134,7 @@
 	
 	<target 
 		name="compile" 
-		depends="setup,jsSource,deploy,teardown,restartRailo" />
+		depends="setup,deploy,teardown,restartRailo" />
 	
 
 </project>
