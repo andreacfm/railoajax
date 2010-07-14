@@ -95,6 +95,14 @@
 			<fileset dir="${basedir}/temp/compressed" includes="RailoMap.js"/>
 		</copy>	
 
+		<copy todir="${basedir}/temp/tag/railo/core/ajax/js" overwrite="true">
+			<fileset dir="${basedir}/temp/compressed" includes="RailoLayout.js"/>
+		</copy>	
+
+		<copy todir="${basedir}/temp/tag/railo/core/ajax/js" overwrite="true">
+			<fileset dir="${basedir}/temp/compressed" includes="RailoWindow.js"/>
+		</copy>	
+
 		<copy todir="${basedir}/temp/tag/railo/core/ajax/js/google" overwrite="true">
 			<fileset dir="${basedir}/temp/compressed" includes="google-map.js"/>
 		</copy>	
