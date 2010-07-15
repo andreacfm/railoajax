@@ -202,7 +202,7 @@
 					}
 					
 				]>
-<cfset stMenu = {'title':'AJAX Proxy examples - by Andrea Campolonghi', 'css':[], 'js':['js/Sizzle.js',], 'url':'overview.cfm'}>
+<cfset stMenu = {'title':'Railo Ajax Tags and Functions - Examples', 'css':[], 'js':['js/Sizzle.js',], 'url':'overview.cfm'}>
 <cfparam name="url.template" default="overview.cfm">
 
 <cfif structKeyExists(url, "template")>

@@ -485,7 +485,7 @@ var config = {
 	},
 	"CFWINDOW" : {
 		libs : {
-			'jquery' : ['jquery/jquery-1.3.2','jquery/ui.core','jquery/ui.dialog','jquery/ui.resizable','jquery/ui.draggable','jquery/jquery.window'],
+			'jquery' : ['jquery/jquery-1.4.2','jquery/ui.core','jquery/ui.dialog','jquery/ui.resizable','jquery/ui.draggable','jquery/jquery.window'],
 			'ext' : ['ext/ext-base','ext/ext-all','ext/ext.window']				 
 		},
 		js : ['RailoWindow'],
