@@ -35,40 +35,44 @@
 		</cfoutput>
 	</div>
 	
-	<div id="sidebar">	
-	<i>* = Included into Railo Core Engine</i>	
-		<cfloop from="1" to="#arraylen(stLinks)#" index="el">		
-
-			<cfoutput>
-				<h1 onclick="toggleItems('_#el#');">#stLinks[el].name#</h1>			
-				<div id="_#el#" class="left-box">
-					<ul>
-						<cfloop from="1" to="#arrayLen(stLinks[el].links)#" index="iEl">
-							<cfif iEl eq 1>
-								<cfset sClass = "first">
-							<cfelseif iEl eq arraylen(stLinks)>
-								<cfset sClass = "last">
-							<cfelse>
-								<cfset sClass = "">
-							</cfif>
-							<cfif structKeyExists(url, 'template') AND stLinks[el].links[iEl].url eq url.template>
-								<li class="current"><a class="current" href="index.cfm?template=#stLinks[el].links[iEl].url#">#stLinks[el].links[iEl].name#</a></li>
-							<cfelse>
-								<li class="#sClass#"><a href="index.cfm?template=#stLinks[el].links[iEl].url#">#stLinks[el].links[iEl].name#</a></li>
-							</cfif>
-						</cfloop>
-					</ul>
-				</div>
-			</cfoutput>
-					
-		</cfloop>
-
-		<ul>
-			<cfoutput>
-				<li>&copy;#year(now())# Railo Technologies GmbH, Switzerland.</li>
-				<li>&copy;#year(now())# Andrea Campolonghi.</li>			
-			</cfoutput>		
-		</ul>		
-	</div>
-	
-	<div id="main">
+	<table width="100%">
+		<tr>
+			<td width="220" valign="top">	
+			<div id="sidebar">	
+			<i>* = Included into Railo Core Engine</i>	
+				<cfloop from="1" to="#arraylen(stLinks)#" index="el">		
+		
+					<cfoutput>
+						<h1 onclick="toggleItems('_#el#');">#stLinks[el].name#</h1>			
+						<div id="_#el#" class="left-box">
+							<ul>
+								<cfloop from="1" to="#arrayLen(stLinks[el].links)#" index="iEl">
+									<cfif iEl eq 1>
+										<cfset sClass = "first">
+									<cfelseif iEl eq arraylen(stLinks)>
+										<cfset sClass = "last">
+									<cfelse>
+										<cfset sClass = "">
+									</cfif>
+									<cfif structKeyExists(url, 'template') AND stLinks[el].links[iEl].url eq url.template>
+										<li class="current"><a class="current" href="index.cfm?template=#stLinks[el].links[iEl].url#">#stLinks[el].links[iEl].name#</a></li>
+									<cfelse>
+										<li class="#sClass#"><a href="index.cfm?template=#stLinks[el].links[iEl].url#">#stLinks[el].links[iEl].name#</a></li>
+									</cfif>
+								</cfloop>
+							</ul>
+						</div>
+					</cfoutput>
+							
+				</cfloop>
+		
+				<ul>
+					<cfoutput>
+						<li>&copy;#year(now())# Railo Technologies GmbH, Switzerland.</li>
+						<li>&copy;#year(now())# Andrea Campolonghi.</li>			
+					</cfoutput>		
+				</ul>		
+			</div>
+			</td>
+			<td valign="top">
+				<div id="main">

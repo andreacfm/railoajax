@@ -485,7 +485,7 @@ var config = {
 	},
 	"CFWINDOW" : {
 		libs : {
-			'jquery' : ['jquery/jquery-1.4.2','jquery/ui.core','jquery/ui.dialog','jquery/ui.resizable','jquery/ui.draggable','jquery/jquery.window'],
+			'jquery' : ['jquery/jquery-1.4.2','jquery/jquery-ui-1.8.2','jquery/jquery.window'],
 			'ext' : ['ext/ext-base','ext/ext-all','ext/ext.window']				 
 		},
 		js : ['RailoWindow'],
@@ -501,7 +501,7 @@ var config = {
 	},
 	"CFLAYOUT-TAB" : {
 		libs : {
-			'jquery' : ['jquery/jquery-1.3.2','jquery/ui.core','jquery/ui.tabs','jquery/jquery.layout'],
+			'jquery' : ['jquery/jquery-1.3.2','jquery/jquery-1.4.2','jquery/jquery-ui-1.8.2','jquery/jquery.layout'],
 			'ext' : ['ext/ext-base','ext/ext-all','ext/ext.layout']				 
 		},
 		js : ['RailoLayout'],

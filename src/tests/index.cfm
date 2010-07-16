@@ -53,14 +53,14 @@
 							'title':'Buttons',
 							'css':[],
 							'js':[]
-							},
+							}/*,
 							
 						{	'url':'cfwindow/ext.cfm',
 							'name':'Ext',
 							'title':'Ext Window',
 							'css':[],
 							'js':[]
-							}
+							}*/
 						]
 					},
 					{	'name':'(*) CFAjaxImport', 'links':[

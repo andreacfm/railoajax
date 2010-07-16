@@ -469,13 +469,9 @@ div.grippie {
 }
 
 /* main column */
-#main {
-	margin:0pt 2em 0pt 240px;
-}
 
 /* sidebar */
 #sidebar {
-	float: left;
 	width: 220px;
 	margin: 0px 10px 0px 0px; 
 	padding: 0;
