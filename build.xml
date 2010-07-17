@@ -119,6 +119,12 @@
 				
 	</target>
 
+	<target name="toRailoFork">
+		<echo message="Deploy into the railo fork"></echo>
+		<copy todir="${railo.fork.location}${railo.fork.library}" overwrite="true"> 
+			<fileset dir="${project.buildPath}/"></fileset>
+		</copy>
+	</target>
 	
 	<!-- teardown -->
 	<target name="teardown">
@@ -142,7 +148,7 @@
 	
 	<target 
 		name="compile" 
-		depends="setup,deploy,teardown,restartRailo" />
+		depends="setup,deploy,toRailoFork,teardown" />
 	
 
 </project>
