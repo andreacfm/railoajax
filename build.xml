@@ -75,6 +75,12 @@
 			<fileset dir="${basedir}/temp/tag/railo/core/ajax/js/google">
 				<include name="*.js"/>
 			</fileset>							
+			<fileset dir="${basedir}/temp/tag/railo/core/ajax/js/jquery">
+				<include name="jquery.layout.js"/>				
+			</fileset>							
+			<fileset dir="${basedir}/temp/tag/railo/core/ajax/js/jquery">
+				<include name="jquery.window.js"/>
+			</fileset>							
 		</copy>
 		
 		<yui-compressor 
@@ -107,6 +113,14 @@
 			<fileset dir="${basedir}/temp/compressed" includes="google-map.js"/>
 		</copy>	
 
+		<copy todir="${basedir}/temp/tag/railo/core/ajax/js/jquery" overwrite="true">
+			<fileset dir="${basedir}/temp/compressed" includes="jquery.layout.js"/>
+		</copy>	
+
+		<copy todir="${basedir}/temp/tag/railo/core/ajax/js/jquery" overwrite="true">
+			<fileset dir="${basedir}/temp/compressed" includes="jquery.window.js"/>
+		</copy>			
+		
 		<echo message="Deploying to build path"/>		
 		<copy todir="${project.buildPath}/tag" overwrite="true">
 			<fileset dir="${basedir}/temp/tag/"/>
