@@ -37,11 +37,11 @@ var _RAILO_URL_BIND_HANDLER = 'Railo.Bind.urlBindHandler';
 var _RAILO_CFC_RETURN_FORMATS = ['json','plain','wddx'];
 
 /**
- * Private - 1.3.2
+ * Private - 1.4.2
  * @property _JQUERY_VERSION
  * @type String
  */
-var _JQUERY_VERSION = '1.3.2';
+var _JQUERY_VERSION = '1.4.2';
 
 
 return {
@@ -501,7 +501,7 @@ var config = {
 	},
 	"CFLAYOUT-TAB" : {
 		libs : {
-			'jquery' : ['jquery/jquery-1.3.2','jquery/jquery-1.4.2','jquery/jquery-ui-1.8.2','jquery/jquery.layout'],
+			'jquery' : ['jquery/jquery-1.4.2','jquery/jquery-ui-1.8.2','jquery/jquery.layout'],
 			'ext' : ['ext/ext-base','ext/ext-all','ext/ext.layout']				 
 		},
 		js : ['RailoLayout'],
