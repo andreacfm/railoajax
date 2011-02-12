@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="RailoAjax" default="compile">
+<project name="RailoAjax" default="build">
 	
 	<!-- update build properties -->
 	<propertyfile file="build.properties">
@@ -17,8 +17,8 @@
 	<property file="build.properties"/>	
 
 	<!-- yui compressor -->
-	<property name="yui-compressor.jar" location="${project.libs}/yuicompressor-2.4.2.jar" />
-	<property name="yui-compressor-ant-task.jar" location="${project.libs}/yui-compressor-ant-task-0.4.jar" />
+	<property name="yui-compressor.jar" location="libs/yuicompressor-2.4.2.jar" />
+	<property name="yui-compressor-ant-task.jar" location="libs/yui-compressor-ant-task-0.4.jar" />
 
 	<path id="yuiTask.classpath">
 		<pathelement location="${yui-compressor.jar}" />
@@ -28,39 +28,48 @@
 	
 	<!-- setup -->
 	<target name="setup">
+        <delete dir="${basedir}/temp" failonerror="false"/>
 		<mkdir dir="${basedir}/temp" />		
 		<mkdir dir="${basedir}/temp/uncompressed" />		
 		<mkdir dir="${basedir}/temp/compressed"/>
 		<mkdir dir="${basedir}/temp/tag"/>
 		<mkdir dir="${basedir}/temp/function"/>
+        <mkdir dir="${basedir}/temp/output"/>
 	</target>
 	
 		
 	<!-- deploy -->	
-	<target name="deploy">	
+	<target name="deploy" depends="setup">
 			
 		<echo message="Copying to temp tags location"/>
 
-		<copy todir="${basedir}/temp/tag">
-			<fileset dir="${project.src}/tag"/>
+		<copy todir="${basedir}/temp/tag" overwrite="true">
+			<fileset dir="src/tag"/>
 		</copy>	
 
 		<echo message="Copying to temp function location"/>
 
-		<copy todir="${basedir}/temp/function">
-			<fileset dir="${project.src}/function"/>
+		<copy todir="${basedir}/temp/function" overwrite="true">
+			<fileset dir="src/function"/>
 		</copy>	
 
-		<echo message="Deploying to local railo install before compress ( server admin : ${project.railoLib}/library/tag )."/>		
+		<echo message="Deploying to local railo install before compress."/>
 
-		<copy todir="${project.railoLib}/library/tag" overwrite="true">
+        <delete dir="WEB-INF/railo/library/tag" failonerror="false"/>
+
+		<copy todir="WEB-INF/railo/library/tag" overwrite="true">
 			<fileset dir="${basedir}/temp/tag/"/>
 		</copy>
 
-		<copy todir="${project.railoLib}/library/function" overwrite="true">
+        <delete dir="WEB-INF/railo/library/function" failonerror="false"/>
+
+		<copy todir="WEB-INF/railo/library/function" overwrite="true">
 			<fileset dir="${basedir}/temp/function/"/>
 		</copy>
-				
+
+    </target>
+
+    <target name="compress" depends="deploy">
 		
 		<taskdef name="yui-compressor" classname="net.noha.tools.ant.yuicompressor.tasks.YuiCompressorTask">
   			<classpath refid="yuiTask.classpath" />
@@ -122,48 +131,25 @@
 		</copy>			
 		
 		<echo message="Deploying to build path"/>		
-		<copy todir="${project.buildPath}/tag" overwrite="true">
+		<copy todir="build/tag" overwrite="true">
 			<fileset dir="${basedir}/temp/tag/"/>
 		</copy>
 
-		<copy todir="${project.buildPath}/function" overwrite="true">
+		<copy todir="build/function" overwrite="true">
 			<fileset dir="${basedir}/temp/function/"/>
 		</copy>
 			
 				
 	</target>
 
-	<target name="toRailoFork">
-		<echo message="Deploy into the railo fork"></echo>
-		<copy todir="${railo.fork.location}${railo.fork.library}" overwrite="true"> 
-			<fileset dir="${project.buildPath}/"></fileset>
-		</copy>
-	</target>
-	
-	<!-- teardown -->
-	<target name="teardown">
-		<delete dir="${basedir}/temp"/>	
+    <target name="restartRailo" depends="compress" description="Restarts the Railo server.">
+       <get src="http://${server.name}:${server.port}/reload.cfm" dest="temp/output/output.txt" ignoreerrors="true" />
+    </target>
+
+	<target name="build" depends="restartRailo">
+		<delete dir="${basedir}/temp"/>
 	</target>
 
-	
-	<target name="restartRailo" description="Restarts the Railo server.">
-
-		<get
-	     src="http://${server.name}:${server.port}/server/railo_restart.cfm?admin_password=${admin.password}"
-	     dest="${project.wwwroot}/server/temp/restart_output.txt"/>
-	  
-		<loadfile property="restart.status" srcFile="${project.wwwroot}/server/temp/restart_output.txt"/>
-
-	  	<echo message="Restart status: ${restart.status}"/>
-
-	  	<delete file="${project.wwwroot}/server/temp/restart_output.txt"/>
-	
-	</target>
-	
-	<target 
-		name="compile" 
-		depends="setup,deploy,toRailoFork,teardown" />
-	
 
 </project>
 
