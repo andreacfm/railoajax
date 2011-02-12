@@ -212,6 +212,11 @@ setCenter : function(name, options){
 	 		}
 		}
 	 }
+} ,
+
+addEvent : function(map,event,listener){
+    m = getMapObject();
+    google.maps.event.addListener(m,event,listener);
 }
 
 }}

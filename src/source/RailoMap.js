@@ -2,6 +2,8 @@ Railo.Map = (function(){
 	
 	
 	var adapter = new Railo.adapters.Map();
+
+    console.log(adapter);
 	
     Railo.Message.map = {
 		missingRelatedArgument : 'Attributes {0} or {1} are required.'
@@ -59,6 +61,17 @@ addMarker : function(name, markerObj){
 	 }
 	//call adapter
 	adapter.addMarker(name,options);
+},
+
+/**
+ *
+ * @param name - map name
+ * @param event - event to listen to http://code.google.com/apis/maps/documentation/javascript/events.html#EventListeners
+ * @param listener  function to be fired
+ */
+addEvent :function(name,event,listener){
+    var adapter = getAdapter();
+    adapter.addEvent(name,event,listener);
 }
 
 
