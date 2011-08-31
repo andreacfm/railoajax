@@ -4,6 +4,20 @@ function onError(code,message){
 }
 </script>
 
+<cfajaxproxy bind="cfc:todo.TodoService.addTodo({todoForm:addtask})" onSuccess="displayTodos" onError="onError"/>
+
+<script type="text/javascript" charset="utf-8">
+                
+    function onError(code,message){
+        alert(code + ' - ' + message);
+    }
+    function displayTodos(){
+        //var todo = new todoService();
+      //document.getElementById('todoDisplay').innerHTML = todo.displayTodos();            
+    } 
+</script>
+
+
 <h2>CFC Bind</h2>
 <ul>
 	<li>

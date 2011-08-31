@@ -17,7 +17,7 @@ function init() {
 }
 </script>
 
-<cfmap centeraddress="Lafayette, LA" zoomlevel="15" name="mainMap"/>
+<cfmap centeraddress="Milano Italy" zoomlevel="15" name="mainMap"/>
 
 <div id="streetDiv" style="width:500px;height:500px"></div>
 <cfset ajaxOnLoad("init")>

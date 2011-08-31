@@ -1,3 +1,4 @@
+<cfajaximport params="#{loadersrc = '/myloader.png'}#">
 <script type="text/javascript">
 function onError(a,b){
 	alert(b);
