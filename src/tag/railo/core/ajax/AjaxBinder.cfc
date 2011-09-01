@@ -136,7 +136,9 @@
 
 			<cfset local.result['handler'] = _RAILO_URL_BIND_HANDLER />
 
-		</cfif>	
+            <cfdump var="#arguments.bindExpr#"/><cfabort/>
+
+		</cfif>
 	
 		<cfset local.result['listener'] = arguments.listener />
 		<cfset local.result['errorHandler'] = arguments.errorHandler />
