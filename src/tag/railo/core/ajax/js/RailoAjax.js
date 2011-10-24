@@ -520,14 +520,7 @@ var config = {
 			'Layout.beforeTabEnable',
 			'Layout.afterTabEnable'
 			]
-	},
-	"CFMENU" : {
-		libs : {
-			'yui' : ['yui/yahoo-dom-event/yahoo-dom-event','yui/container/container_core-min','yui/menu/menu-min']
-			},  
-		js : [],
-		events :[]		
-	} 
+	}
 };
 
 
@@ -547,10 +540,6 @@ var cssConfigs = {
 		"CFLAYOUT-TAB" : {
 			'jquery' : ['jquery/RailoSkin'],
 			'ext' : ['ext/css/RailoSkin']		 
-		},
-
-		"CFMENU" : {
-			'yui' : ['yui/fonts-min','yui/menu-core','yui/menu-skin']	 
 		}
 		
 };

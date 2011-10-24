@@ -14,7 +14,7 @@
 			<link rel="stylesheet" href="#sStyle#" type="text/css">
 		</cfloop>
 		<cfloop array="#stMenu.js#" index="sJS">
-			<script type="text/javascript" src="header.cfm#sJS#"></script>
+			<script type="text/javascript" src="#sJS#"></script>
 		</cfloop>
 	</cfoutput>
 </head>
