@@ -9,7 +9,7 @@ window.onload = function(){
 </pre>
 
 <div id="messageBox" class="result"> </div>
-<form id="ajaxForm" action="/RailoAjax/functions/files/save.cfm">
+<form id="ajaxForm" action="/demo/functions/files/save.cfm">
   <label>Name</label><input type="text" name="name"><br>
   <label>Address</label><input type="text" name="address"><br/>
   <label>Phone</label><input type="text" name="phone"><br/><br/>
@@ -63,7 +63,7 @@ window.onload = function(){
 </script>
 
 <div id="messageBox2" class="result"> </div>
-<form id="ajaxForm2" action="/RailoAjax/functions/files/save.cfm">
+<form id="ajaxForm2" action="/demo/functions/files/save.cfm">
   <label>Name</label><input type="text" name="name"><br><br>
   <input type="submit" class="submitButton" value="Submit"/>
 </form>
