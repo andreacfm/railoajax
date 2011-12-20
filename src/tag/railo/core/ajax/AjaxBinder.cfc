@@ -12,8 +12,8 @@
 	<!--- Constructor --->
     <cffunction name="init" output="no" returntype="ajaxBinder">
 		<cfreturn this/>
-  	</cffunction> 
-		
+  	</cffunction>
+
 	<cffunction name="parseParameters" type="array" output="false">
 		<cfargument name="bindExpr" required="true" type="string" />
 		<cfset var local = structNew()/>
@@ -104,7 +104,7 @@
 				<cfset local.len = listlen(local.cfcString,'.') />
 				<cfset local.result['method'] = listGetAt(local.cfcString,local.len,'.') /> 
 				<cfset local.result['url'] = listDeleteAt(local.cfcString,local.len,'.') />
-				<cfset local.result['url'] = variables.instance.proxyHelper.classToPath(local.result['url']) />
+				<cfset local.result['url'] = variables.instance.proxyHelper.classToPath(local.result['url']) & '?' />
 			<cfelse>
 				<cfthrow message="The Bind expression #arguments.bindExpr# is not supported." type="cfajaxproxy.BindExpressionNOtSupported">
 			</cfif>
@@ -158,11 +158,8 @@
 		<cfif local.hasParams>
 			<cfset local.result['bindExpr'] = parseParameters(arguments.bindExpr) />
 		</cfif>
-    <cfdump var="#local.result#"/>
-    <cfabort/>
-
 
 		<cfreturn local.result />
 	</cffunction>
-	
+
 </cfcomponent>

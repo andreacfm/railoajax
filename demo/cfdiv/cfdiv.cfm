@@ -16,12 +16,12 @@ function onError(a,b){
 <p>bindonload="false"</p>
 <pre>
 &lt;cfdiv 
-bind="url:/RailoAjax/cfdiv/files/getHTML.cfm?name={myForm2:name}&age={myForm2:age}" 
+bind="url:/demo/cfdiv/files/getHTML.cfm?name={myForm2:name}&age={myForm2:age}"
 onBindError="onError" 
 bindonload="false" 
 id="mydiv1"/>
 </pre>
-<cfdiv bind="url:#getContextRoot()#/RailoAjax/cfdiv/files/getHTML.cfm?name={myForm2:name}&age={myForm2:age}" onBindError="onError" bindonload="false" id="mydiv1"/>
+<cfdiv bind="url:#getContextRoot()#/demo/cfdiv/files/getHTML.cfm?name={myForm2:name}&age={myForm2:age}" onBindError="onError" bindonload="false" id="mydiv1"/>
 <form id="myForm2" format="html">
   <label>Name</label><input type="text" name="name"><br>
   <label>Age</label><input type="text" name="age" value="35">
@@ -36,11 +36,11 @@ This example div is binded to the same input fields of the previous example but 
 <p>onChange event both div will be updated.</p>
 <pre>
 &lt;cfdiv 
-bind="url:/RailoAjax/cfdiv/files/getHTML.cfm?name={myForm2:name}&age={myForm2:age}" 
+bind="url:/demo/cfdiv/files/getHTML.cfm?name={myForm2:name}&age={myForm2:age}"
 onBindError="onError" 
 id="mydiv1"/>
 </pre>
-<cfdiv bind="url:#getContextRoot()#/RailoAjax/cfdiv/files/getHTML.cfm?name={myForm2:name}&age={myForm2:age}" onBindError="onError" id="mydiv2"/>
+<cfdiv bind="url:#getContextRoot()#/demo/cfdiv/files/getHTML.cfm?name={myForm2:name}&age={myForm2:age}" onBindError="onError" id="mydiv2"/>
 
 
 
@@ -50,12 +50,12 @@ id="mydiv1"/>
 <p>In this example we create a 'p' element on page and not a 'div'. ( tagname="p" )</p>
 <pre>
 &lt;cfdiv 
-bind="url:/RailoAjax/cfdiv/files/getName.cfm?myname={myForm3:name}&myage={myForm3:age}" 
+bind="url:/demo/cfdiv/files/getName.cfm?myname={myForm3:name}&myage={myForm3:age}"
 onBindError="onError" 
 id="mydiv3" 
 tagname="p"/>
 </pre>
-<cfdiv bind="url:#getContextRoot()#/RailoAjax/cfdiv/files/getName.cfm?myname={myForm3:name}&myage={myForm3:age}" onBindError="onError" id="mydiv3" tagname="p"/>
+<cfdiv bind="url:#getContextRoot()#/demo/cfdiv/files/getName.cfm?arg=no_bind&myname={myForm3:name}&myage={myForm3:age}" onBindError="onError" id="mydiv3" tagname="p"/>
 <form id="myForm3" format="html">
   <label>Name</label><input type="text" name="name" value="Andrea"><br>
   <label>Age</label><input type="text" name="age" value="35">

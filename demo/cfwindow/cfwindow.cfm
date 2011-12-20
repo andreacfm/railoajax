@@ -21,7 +21,7 @@ function addHandlers(){
 tag
 **************************************************************
 &lt;cfwindow name="win1" title="win1" 
-source="/RailoAjax/cfwindow/files/windowcontentA.cfm" initShow="true"/>
+source="/demo/cfwindow/files/windowcontentA.cfm" initShow="true"/>
 
 **************************************************************
 html
@@ -29,7 +29,7 @@ html
 &lt;button onclick="Railo.Window.show('win1');">Open Win 1</button>
 &lt;button onclick="Railo.Window.hide('win1');">Close Win 1</button>
 </pre>
-<cfwindow name="win1" title="win1" source="#getContextRoot()#/RailoAjax/cfwindow/files/windowcontentA.cfm" initShow="true"/>
+<cfwindow name="win1" title="win1" source="#getContextRoot()#/demo/cfwindow/files/windowcontentA.cfm" initShow="true"/>
 <input type="button" class="submitButton" onclick="Railo.Window.show('win1');" value="Open Win 1"/>
 <input type="button" class="submitButton" onclick="Railo.Window.hide('win1');" value="Close Win 1"/>
 
@@ -49,10 +49,10 @@ tag
 &lt;cfwindow 
 name="error" 
 title="Error Win" 
-source="/RailoAjax/cfwindow/files/windowcontent.cfm" 
+source="/demo/cfwindow/files/windowcontent.cfm" 
 onBindError="customError"/>
 </pre>
-<cfwindow name="error" title="Error Win" source="#getContextRoot()#/RailoAjax/cfwindow/files/windowcontent.cfm" onBindError="customError"/>
+<cfwindow name="error" title="Error Win" source="#getContextRoot()#/demo/cfwindow/files/windowcontent.cfm" onBindError="customError"/>
 <input type="button" class="submitButton" onclick="Railo.Window.show('error');" value="Open Win With Binding Error!">
 
 <h3>Binding to elements</h3>
@@ -64,7 +64,7 @@ tag
 &lt;cfwindow 
 name="win2" 
 title="win2" 
-source="/RailoAjax/cfwindow/files/getname.cfm?name={form:name}&age={form:age@none}"
+source="/demo/cfwindow/files/getname.cfm?name={form:name}&age={form:age@none}"
 RefreshOnShow="true"/>
 **************************************************************
 html
@@ -81,7 +81,7 @@ html
   <label>Age</label><input type="text" name="age"><br/><br/>
   <input type="button" class="submitButton" onclick="Railo.Window.show('win2');" value="Open Win 2"/>
 </form>
-<cfwindow name="win2" title="win2" source="#getContextRoot()#/RailoAjax/cfwindow/files/getname.cfm?name={form:name@none}&age={form:age@none}" RefreshOnShow="true"/>
+<cfwindow name="win2" title="win2" source="#getContextRoot()#/demo/cfwindow/files/getname.cfm?name={form:name@none}&age={form:age@none}" RefreshOnShow="true"/>
 
 <h3>Modal</h3>
 <pre>
@@ -91,7 +91,7 @@ tag
 &lt;cfwindow 
 name="win3" 
 title="win3" 
-source="/RailoAjax/cfwindow/files/modal.cfm" 
+source="/demo/cfwindow/files/modal.cfm" 
 modal='true'/>
 
 **************************************************************
@@ -99,7 +99,7 @@ html
 **************************************************************
 &lt;button onclick="Railo.Window.show('win3');">Open Win 3</button>
 </pre>
-<cfwindow name="win3" title="win3" source="#getContextRoot()#/RailoAjax/cfwindow/files/modal.cfm" modal='true'/>
+<cfwindow name="win3" title="win3" source="#getContextRoot()#/demo/cfwindow/files/modal.cfm" modal='true'/>
 <input type="button" class="submitButton" onclick="Railo.Window.show('win3');" value="Open Win 3"/>
 
 <h3>RefreshOnShow : true</h3>
@@ -107,19 +107,19 @@ html
 <pre>
 &lt;cfwindow 
 name="win4" title="win4" 
-source="/RailoAjax/cfwindow/files/windowrefresh.cfm" RefreshOnShow="true"/>
+source="/demo/cfwindow/files/windowrefresh.cfm" RefreshOnShow="true"/>
 </pre>
-<cfwindow name="win4" title="win4" source="#getContextRoot()#/RailoAjax/cfwindow/files/windowrefresh.cfm" RefreshOnShow="true"/>
+<cfwindow name="win4" title="win4" source="#getContextRoot()#/demo/cfwindow/files/windowrefresh.cfm" RefreshOnShow="true"/>
 <input type="button" class="submitButton" onclick="Railo.Window.show('win4');" value="Open Win 4"/>
 <input type="button" class="submitButton" onclick="Railo.Window.hide('win4');" value="Close Win 4"/>
 
 <h3>Start and Min Dimensions</h3>
 <pre>
 &lt;cfwindow name="win5" title="win5" 
-source="/RailoAjax/cfwindow/files/windownorefresh.cfm" 
+source="/demo/cfwindow/files/windownorefresh.cfm" 
 width="700" height="500" minHeight="400" minWidth="400"/>
 </pre>
-<cfwindow name="win5" title="win5" source="#getContextRoot()#/RailoAjax/cfwindow/files/windownorefresh.cfm" width="700" height="500" minHeight="400" minWidth="400"/>
+<cfwindow name="win5" title="win5" source="#getContextRoot()#/demo/cfwindow/files/windownorefresh.cfm" width="700" height="500" minHeight="400" minWidth="400"/>
 <input type="button" class="submitButton" onclick="Railo.Window.show('win5');" value="Open Win 5" />
 <input type="button" class="submitButton" onclick="Railo.Window.hide('win5');" value="Close Win 5" />
 
@@ -148,7 +148,7 @@ tag
 &lt;cfwindow 
 name="win3" 
 title="win3" 
-source="/RailoAjax/cfwindow/files/modal.cfm" 
+source="/demo/cfwindow/files/modal.cfm" 
 modal='true' x="0" y="0"/>
 
 **************************************************************
@@ -156,6 +156,6 @@ html
 **************************************************************
 &lt;button onclick="Railo.Window.show('win7');">Open Win 3</button>
 </pre>
-<cfwindow name="win7" title="win 7" source="#getContextRoot()#/RailoAjax/cfwindow/files/modal.cfm" modal='true' x="0" y="0"/>
+<cfwindow name="win7" title="win 7" source="#getContextRoot()#/demo/cfwindow/files/modal.cfm" modal='true' x="0" y="0"/>
 <input type="button" class="submitButton" onclick="Railo.Window.show('win7');" value="Open Win 7"/>
 

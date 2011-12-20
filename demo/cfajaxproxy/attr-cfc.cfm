@@ -1,6 +1,6 @@
 <h3>cfajaxproxy cfc attribute test cases.</h3>
 
-<cfajaxproxy cfc="RailoAjax.cfajaxproxy.files.test" jsclassname="proxy" extends="true"/>
+<cfajaxproxy cfc="demo.cfajaxproxy.files.test" jsclassname="proxy" extends="true"/>
 <div id="ajaxTest">
 </div>
 <script type="text/javascript">

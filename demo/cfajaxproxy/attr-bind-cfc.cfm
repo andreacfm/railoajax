@@ -33,7 +33,7 @@ function onError(code,message){
 **************************************************************
 tag
 **************************************************************
-&lt;cfcfajaxproxy bind="cfc:RailoAjax.cfajaxproxy.files.test.getName({myForm:myName})" 
+&lt;cfcfajaxproxy bind="cfc:demo.cfajaxproxy.files.test.getName({myForm:myName})" 
 onSuccess="updateDiv1" onError="onError"/>
 
 **************************************************************
@@ -51,7 +51,7 @@ updateDiv1 = function(data, textStatus){
   document.getElementById('myDiv1').innerHTML = data;			
 }										
 </pre>
-<cfajaxproxy bind="cfc:RailoAjax.cfajaxproxy.files.test.getName({myForm:myName})" onSuccess="updateDiv1" onError="onError"/>	
+<cfajaxproxy bind="cfc:demo.cfajaxproxy.files.test.getName({myForm:myName})" onSuccess="updateDiv1" onError="onError"/>	
 <script type="text/javascript">								
 updateDiv1 = function(data, textStatus){
   document.getElementById('myDiv1').innerHTML = data;			
@@ -72,7 +72,7 @@ updateDiv1 = function(data, textStatus){
 **************************************************************
 tag
 **************************************************************
-&lt;cfajaxproxy bind="cfc:RailoAjax.cfajaxproxy.files.test.getInfo({myForm2:myName},{myForm2:myAge})" 
+&lt;cfajaxproxy bind="cfc:demo.cfajaxproxy.files.test.getInfo({myForm2:myName},{myForm2:myAge})" 
 onSuccess="updateDiv2" onError="onError"/>	
 
 **************************************************************
@@ -91,7 +91,7 @@ updateDiv2 = function(data, textStatus){
   document.getElementById('myDiv2').innerHTML = data;			
 }
 </pre>
-<cfajaxproxy bind="cfc:RailoAjax.cfajaxproxy.files.test.getInfo({myForm2:myName},{myForm2:myAge})" onSuccess="updateDiv2" onError="onError"/>	
+<cfajaxproxy bind="cfc:demo.cfajaxproxy.files.test.getInfo({myForm2:myName},{myForm2:myAge})" onSuccess="updateDiv2" onError="onError"/>	
 <script type="text/javascript">
 updateDiv2 = function(data, textStatus){							
   document.getElementById('myDiv2').innerHTML = data;			
@@ -113,7 +113,7 @@ updateDiv2 = function(data, textStatus){
 tag
 **************************************************************
 &lt;cfajaxproxy 
-bind="cfc:RailoAjax.cfajaxproxy.files.test.getInfo({myForm3:myName},{myForm3:myAge},{send@mousedown})" 
+bind="cfc:demo.cfajaxproxy.files.test.getInfo({myForm3:myName},{myForm3:myAge},{send@mousedown})" 
 onSuccess="updateDiv3" onError="onError"/>	
 **************************************************************
 cfc
@@ -124,7 +124,7 @@ js
 **************************************************************
 same as previous
 </pre>
-<cfajaxproxy bind="cfc:RailoAjax.cfajaxproxy.files.test.getInfo({myForm3:myName},{myForm3:myAge},{send@mousedown})" onSuccess="updateDiv3" onError="onError"/>	
+<cfajaxproxy bind="cfc:demo.cfajaxproxy.files.test.getInfo({myForm3:myName},{myForm3:myAge},{send@mousedown})" onSuccess="updateDiv3" onError="onError"/>	
 <script type="text/javascript">
 updateDiv3 = function(data, textStatus){							
   document.getElementById('myDiv3').innerHTML = data;			
@@ -145,7 +145,7 @@ Binding is delegated to the 'mousedown' event on send2 element.</p>
 tag
 **************************************************************
 &lt;cfajaxproxy 
-bind="cfc:RailoAjax.cfajaxproxy.files.getInfo({myForm4:myName@none},{myForm4:myAge@none},{send@mousedown})" 
+bind="cfc:demo.cfajaxproxy.files.getInfo({myForm4:myName@none},{myForm4:myAge@none},{send@mousedown})" 
 onSuccess="updateDiv4" onError="onError"/>	
 **************************************************************
 cfc
@@ -156,7 +156,7 @@ js
 **************************************************************
 same as previous
 </pre>
-<cfajaxproxy bind="cfc:RailoAjax.cfajaxproxy.files.test.getInfo({myForm4:myName@none},{myForm4:myAge@none},{send2@mousedown})" onSuccess="updateDiv4" onError="onError"/>	
+<cfajaxproxy bind="cfc:demo.cfajaxproxy.files.test.getInfo({myForm4:myName@none},{myForm4:myAge@none},{send2@mousedown})" onSuccess="updateDiv4" onError="onError"/>	
 <script type="text/javascript">
 updateDiv4 = function(data, textStatus){							
   document.getElementById('myDiv4').innerHTML = data;			
@@ -179,7 +179,7 @@ updateDiv4 = function(data, textStatus){
 tag
 **************************************************************
 &lt;cfajaxproxy 
-bind="cfc:RailoAjax.cfajaxproxy.files.getInfoJson({myForm5:myName},{myForm5:myAge},myCity={myForm5:city})" 
+bind="cfc:demo.cfajaxproxy.files.getInfoJson({myForm5:myName},{myForm5:myAge},myCity={myForm5:city})" 
 onSuccess="updateDiv5" onError="onError"/>	
 
 **************************************************************
@@ -206,7 +206,7 @@ var str = 'My name is ' + data['myName'] + '. I am ' + data['myAge'] +
 document.getElementById('myDiv5').innerHTML = str;			
 </pre>
 
-<cfajaxproxy bind="cfc:RailoAjax.cfajaxproxy.files.test.getInfoJson({myForm5:myName},{myForm5:myAge},myCity={myForm5:city})" onSuccess="updateDiv5" onError="onError"/>	
+<cfajaxproxy bind="cfc:demo.cfajaxproxy.files.test.getInfoJson({myForm5:myName},{myForm5:myAge},myCity={myForm5:city})" onSuccess="updateDiv5" onError="onError"/>	
 <script type="text/javascript">
 updateDiv5 = function(data, textStatus){
 	var str = 'My name is ' + data['myName'] + '. I am ' + data['myAge'] + ' years old and I live in ' + data['myCity'];

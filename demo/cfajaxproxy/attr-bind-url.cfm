@@ -16,7 +16,7 @@ If the cfm page return serializeJson(url.name) the data argument of the updateDi
 **************************************************************
 cfc
 **************************************************************
-&lt;cfajaxproxy bind="url:/RailoAjax/cfajaxProxy/files/getName.cfm?name={myForm:myName}&age={myForm:myAge}" 
+&lt;cfajaxproxy bind="url:/demo/cfajaxProxy/files/getName.cfm?name={myForm:myName}&age={myForm:myAge}" 
 onSuccess="updateDiv1" onError="onError"/>
 
 **************************************************************
@@ -33,7 +33,7 @@ updateDiv1 = function(data, textStatus){
   document.getElementById('myDiv1').innerHTML = 'My Name is ' + data['NAME'] + ' and I am  ' + data['AGE'] + ' years old';			
 }										
 </pre>
-<cfajaxproxy bind="url:#getContextRoot()#/RailoAjax/cfajaxProxy/files/getName.cfm?name={myForm:myName}&age={myForm:myAge}" onSuccess="updateDiv1" onError="onError"/>	
+<cfajaxproxy bind="url:#getContextRoot()#/demo/cfajaxProxy/files/getName.cfm?name={myForm:myName}&age={myForm:myAge}" onSuccess="updateDiv1" onError="onError"/>	
 <script type="text/javascript">								
 updateDiv1 = function(data, textStatus){
   document.getElementById('myDiv1').innerHTML = "My Name is " + data['name'] + " and I am  " + data['age'] + " years old";				

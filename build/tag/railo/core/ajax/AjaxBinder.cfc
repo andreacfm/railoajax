@@ -12,8 +12,8 @@
 	<!--- Constructor --->
     <cffunction name="init" output="no" returntype="ajaxBinder">
 		<cfreturn this/>
-  	</cffunction> 
-		
+  	</cffunction>
+
 	<cffunction name="parseParameters" type="array" output="false">
 		<cfargument name="bindExpr" required="true" type="string" />
 		<cfset var local = structNew()/>
@@ -104,7 +104,7 @@
 				<cfset local.len = listlen(local.cfcString,'.') />
 				<cfset local.result['method'] = listGetAt(local.cfcString,local.len,'.') /> 
 				<cfset local.result['url'] = listDeleteAt(local.cfcString,local.len,'.') />
-				<cfset local.result['url'] = variables.instance.proxyHelper.classToPath(local.result['url']) />
+				<cfset local.result['url'] = variables.instance.proxyHelper.classToPath(local.result['url']) & '?' />
 			<cfelse>
 				<cfthrow message="The Bind expression #arguments.bindExpr# is not supported." type="cfajaxproxy.BindExpressionNOtSupported">
 			</cfif>
@@ -131,8 +131,22 @@
 				<!--- alter the bind Expression to fit the parseParameters --->
 				<cfset local.queryString = reFindNoCase('\?.*',arguments.bindExpr,1,true) />
 				<cfset local.queryString = mid(arguments.bindExpr,local.queryString.pos[1] + 1, local.queryString.len[1] -1) />
-				<cfset arguments.bindExpr = reReplace('(' & local.queryString &')','&',',','All') />
-			</cfif>			
+                <!--- looks for normal quesry string parameters that are not bindings and keep them with url --->
+                <cfset local.qs = "" />
+                <cfset local.binds = "" />
+                <cfloop list="#local.queryString#" index="local.item" delimiters="&">
+                    <cfif find("{",local.item) eq 0>
+                       <cfset local.qs = listAppend(local.qs,local.item,"&")>
+                    <cfelse>
+                        <cfset local.binds = listAppend(local.binds,local.item,"&")>
+                    </cfif>
+                </cfloop>
+
+                <!--- add qs to url--->
+                <cfset local.result["url"] = "#local.result["url"]#?#local.qs#">
+
+				<cfset arguments.bindExpr = reReplace('(' & local.binds &')','&',',','All') />
+			</cfif>
 
 			<cfset local.result['handler'] = _RAILO_URL_BIND_HANDLER />
 
@@ -144,7 +158,8 @@
 		<cfif local.hasParams>
 			<cfset local.result['bindExpr'] = parseParameters(arguments.bindExpr) />
 		</cfif>
+
 		<cfreturn local.result />
 	</cffunction>
-	
+
 </cfcomponent>

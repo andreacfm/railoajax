@@ -345,9 +345,14 @@ request: function(opt){
 	var qs = "";
 	
 	if(data){
+        var counter = 1;
 		for(key in data){
-			var param = '&' + key + '=' + data[key];
-			qs  = qs + param;
+            var param = key + '=' + data[key];
+            if(counter > 1){
+                param = '&' + param;
+            }
+            qs  = qs + param;
+            counter ++;
 		}
 	}
 	
@@ -358,8 +363,13 @@ request: function(opt){
 	}
 	
 	if((type == 'GET') && (qs)){
-		qs = qs.replace('&','?');
-		url = url + qs;		
+        // if last carachter is not a ? add a &
+        console.log(url);
+        console.log(url.match(/[\?]$/));
+        if(!url.match(/[\?]$/)){
+            url = url + '&';
+        }
+		url = url + qs;
 	}else{
 		qs = qs.replace('&','');
 	}
