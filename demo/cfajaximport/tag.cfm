@@ -7,9 +7,9 @@ so you need to laod them via cfajaximport using the tags attribute.
 <p>This page code</p>
 <pre>
  &lt;cfajaximport tag="CFWINDOW"/>
- &lt;cfdiv bind="url:/RailoAjax/cfajaximport/files/openwindow.cfm"/>
+ &lt;cfdiv bind="url:/demo/cfajaximport/files/openwindow.cfm"/>
 </pre>
  <cfajaximport tags="CFWINDOW"/>
  <p>This content is loaded via ajax on page load.</p>
- <cfdiv bind="url:/RailoAjax/cfajaximport/files/openwindow.cfm"/>
+ <cfdiv bind="url:/demo/cfajaximport/files/openwindow.cfm"/>
 

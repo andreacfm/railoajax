@@ -104,7 +104,7 @@
 				<cfset local.len = listlen(local.cfcString,'.') />
 				<cfset local.result['method'] = listGetAt(local.cfcString,local.len,'.') /> 
 				<cfset local.result['url'] = listDeleteAt(local.cfcString,local.len,'.') />
-				<cfset local.result['url'] = variables.instance.proxyHelper.classToPath(local.result['url']) & '?' />
+				<cfset local.result['url'] = variables.instance.proxyHelper.classToPath(local.result['url']) />
 			<cfelse>
 				<cfthrow message="The Bind expression #arguments.bindExpr# is not supported." type="cfajaxproxy.BindExpressionNOtSupported">
 			</cfif>
@@ -116,7 +116,7 @@
 			
 			<cfif refind('\?',arguments.bindExpr,1,false) eq 0>
 				<cfset local.hasParams = false />
-				<cfset local.result['url'] = rereplace(arguments.bindExpr,'url:','','one')/>
+				<cfset local.result['url'] = rereplace(arguments.bindExpr,'url:','','one') & '?'/>
 			</cfif>	
 			
 			<cfif local.hasParams>

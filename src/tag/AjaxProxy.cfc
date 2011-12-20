@@ -75,7 +75,7 @@
 		<cfsavecontent variable="js">
 			<cfoutput>									
 			<script type="text/javascript">
-			var _Railo_#attributes.jsclassname# = Railo.ajaxProxy.init('#cfcPath#?','#attributes.jsClassName#');
+			var _Railo_#attributes.jsclassname# = Railo.ajaxProxy.init('#cfcPath#','#attributes.jsClassName#');
 			<cfloop array="#meta.functions#" index="method"><cfset args = ph.getArguments(method.parameters)/><cfset argsJson = ph.argsToJsMode(args)/>_Railo_#attributes.jsclassname#.prototype.#method.name# = function(#args#){return Railo.ajaxProxy.invokeMethod(this,'#method.name#',{#argsJson#});};
 			</cfloop>
 			</script>		

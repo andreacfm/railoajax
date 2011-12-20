@@ -363,11 +363,10 @@ request: function(opt){
 	}
 	
 	if((type == 'GET') && (qs)){
-        // if last carachter is not a ? add a &
-        console.log(url);
-        console.log(url.match(/[\?]$/));
-        if(!url.match(/[\?]$/)){
+        if(url.match(/[\?]/) && !url.match(/[\?]$/)){
             url = url + '&';
+        }else if(!url.match(/[\?]/) && qs.length > 0){
+            url = url + '?';
         }
 		url = url + qs;
 	}else{

@@ -10,7 +10,7 @@ function callback(data,textStatus){
 }
 
 window.onload = function(){
-	setInterval("Railo.Ajax.submitForm('autoSave','/RailoAjax/functions/files/save.cfm',callback)",3000);	
+	setInterval("Railo.Ajax.submitForm('autoSave','/demo/functions/files/save.cfm',callback)",3000);	
 }	
 
 </pre>
@@ -22,7 +22,7 @@ function callback(data,textStatus){
 }
 
 window.onload = function(){
-	setInterval("Railo.Ajax.submitForm('autoSave','/RailoAjax/functions/files/save.cfm',callback)",3000);	
+	setInterval("Railo.Ajax.submitForm('autoSave','/demo/functions/files/save.cfm',callback)",3000);	
 }	
 </script>
 

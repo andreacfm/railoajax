@@ -18,14 +18,14 @@ html
 **************************************************************
 &lt;button 
 onclick="Railo.Window.create(
-	'win7','win7','/RailoAjax/cfwindow/files/fly.cfm',{initShow:true})">
+	'win7','win7','/demo/cfwindow/files/fly.cfm',{initShow:true})">
 	Create Win 7
 &lt;/button>
 
 &lt;button onclick="Railo.Window.show('win7');">Open Win 7&lt;/button>
 &lt;button onclick="Railo.Window.hide('win7');">Close Win 7&lt;/button>
 </pre>
-<input type="button" class="submitButton" onclick="Railo.Window.create('win7','win7','<cfoutput>#getContextRoot()#</cfoutput>/RailoAjax/cfwindow/files/fly.cfm',{initShow:true})" value="Create Win 7"/>
+<input type="button" class="submitButton" onclick="Railo.Window.create('win7','win7','<cfoutput>#getContextRoot()#</cfoutput>/demo/cfwindow/files/fly.cfm',{initShow:true})" value="Create Win 7"/>
 <input type="button" class="submitButton" onclick="Railo.Window.show('win7');" value="Open Win 7"/>
 <input type="button" class="submitButton" onclick="Railo.Window.hide('win7');" value="Close Win 7"/>
 
@@ -44,17 +44,17 @@ html
 **************************************************************
 &lt;button 
 onclick="Railo.Window.create(
-'win8','win8','/RailoAjax/cfwindow/files/fly.cfm',{initShow:true});addHandlers();">
+'win8','win8','/demo/cfwindow/files/fly.cfm',{initShow:true});addHandlers();">
 Create Win 8
 %lt;/button>
 
 &lt;button onclick="Railo.Window.show('win8');">Open Win 8&lt;/button>
 &lt;button onclick="Railo.Window.hide('win8');">Close Win 8&lt;/button>
 </pre>
-<input type="button" class="submitButton" onclick="Railo.Window.create('win8','win8','<cfoutput>#getContextRoot()#</cfoutput>/RailoAjax/cfwindow/files/fly.cfm',{initShow:true});addHandlers();" value="Create Win 8"/>
+<input type="button" class="submitButton" onclick="Railo.Window.create('win8','win8','<cfoutput>#getContextRoot()#</cfoutput>/demo/cfwindow/files/fly.cfm',{initShow:true});addHandlers();" value="Create Win 8"/>
 <input type="button" class="submitButton" onclick="Railo.Window.show('win8');" value="Open Win 8"/>
 <input type="button" class="submitButton" onclick="Railo.Window.hide('win8');" value="Close Win 8" />
 
 <input type="button" value="test"
-onclick="Railo.Window.create('winPreview','Question Block','<cfoutput>#getContextRoot()#</cfoutput>/RailoAjax/cfwindow/files/fly.cfm', {initShow:true,height:400,width:700,modal:true,closable:false,draggable:true,resizable:true,center:true,initshow:true,minHeight:200,minWidth:200});">
+onclick="Railo.Window.create('winPreview','Question Block','<cfoutput>#getContextRoot()#</cfoutput>/demo/cfwindow/files/fly.cfm', {initShow:true,height:400,width:700,modal:true,closable:false,draggable:true,resizable:true,center:true,initshow:true,minHeight:200,minWidth:200});">
 
