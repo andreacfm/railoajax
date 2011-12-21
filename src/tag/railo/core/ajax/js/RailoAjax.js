@@ -76,11 +76,11 @@ config: function(a){
 
 /**
  * General Error Handler.
- * @param {String} Error message class name.
- * @param {Object} Literal Object that contains the values to be replaced into the the template message. 
+ * @param {String} err Error message class name.
+ * @param {Object} data Literal Object that contains the values to be replaced into the the template message.
  */
 globalErrorHandler : function(err,data){
-	var err = err.split('.');
+	err = err.split('.');
 	var context = Railo.Message[err[0]];
 	var msg = context[err[1]];
 	var t = Railo.Util.template(msg,data);
@@ -185,9 +185,9 @@ var _P = function(){
 	
 /**
  * @private
- * @param {string} name
- * @param {Object} data
- * @param {Function} callback ( not used in Railo Implementation )
+ * @param {string} n
+ * @param {Object} d
+ * @param {Function} c ( not used in Railo Implementation )
  */	
 var _Event = function(n,d,c){							
 	this.name = n;
@@ -231,8 +231,8 @@ removeEvent : function(name){
 /**
  * subscribe
  * @return void
- * @param {Object} obj
- * @param {String} event
+ * @param {Object} o
+ * @param {String} ev
  * @hint An obj subscribe to listen to the required event. Event are matched by name.
  */
 subscribe : function(o,ev){				
@@ -332,7 +332,7 @@ request: function(opt){
 	/* defaults */
 	var type = opt.type ? opt.type : 'GET';
 	var async = true;
-	if(opt.async == false){async = false;};
+	if(!opt.async){async = false;}
 	var success = opt.success ? opt.success : null;
 	var beforeSend = opt.beforeSend ? opt.beforeSend : null;
 	var error = opt.error ? opt.error : null;
@@ -343,7 +343,7 @@ request: function(opt){
 
 	/* query string */
 	var qs = "";
-	
+
 	if(data){
         var counter = 1;
 		for(key in data){
@@ -355,22 +355,20 @@ request: function(opt){
             counter ++;
 		}
 	}
-	
+
 	/*add a random string for forcing browser to call again */
 	if(!opt.cache){
 		var rand_no = Math.ceil(Math.random()*1000000000);
 		qs = qs + '&_' + rand_no;
 	}
 	
-	if((type == 'GET') && (qs)){
+	if(type.match(/get/i) && (qs)){
         if(url.match(/[\?]/) && !url.match(/[\?]$/)){
             url = url + '&';
         }else if(!url.match(/[\?]/) && qs.length > 0){
             url = url + '?';
         }
 		url = url + qs;
-	}else{
-		qs = qs.replace('&','');
 	}
 
 	x.onreadystatechange = function() {
@@ -407,7 +405,7 @@ request: function(opt){
 
 	x.open(type, url, async);
 
-	if(type == 'POST'){
+	if(type.match(/post/i)){
 		/* this declare call as a post */
 		x.setRequestHeader("Content-Type","application/x-www-form-urlencoded; charset=UTF-8");
 	}else{
@@ -417,7 +415,7 @@ request: function(opt){
 
 	if((typeof(beforeSend) == 'function')){
 		beforeSend(x);
-	};	
+	}
 
 	x.send(qs);
 
@@ -891,8 +889,8 @@ exceptionHandler : function(data){
 						
 			var form = document.getElementById(formId);
 			
-			// not required
-			c.type = form.method || 'POST';	
+			// not required   \
+			c.type = form.method || 'POST';
 			c.url = form.action;	
 			c.success = callbackhandler || null;
 			c.error = errorhandler || null;
@@ -913,7 +911,7 @@ exceptionHandler : function(data){
 					e.returnValue = false;
 				};
 			 	c.data = Railo.Form.serialize(formId);
-				xhr.request(c);	
+				xhr.request(c);
 				return false;							
 			 })
 		},

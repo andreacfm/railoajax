@@ -142,13 +142,13 @@
 				
 	</target>
 
-    <target name="restartRailo" depends="compress" description="Restarts the Railo server.">
-       <get src="http://${server.name}:${server.port}/reload.cfm" dest="temp/output/output.txt" ignoreerrors="true" />
-    </target>
-
-	<target name="build" depends="restartRailo">
+	<target name="build" depends="compress">
 		<delete dir="${basedir}/temp"/>
 	</target>
+
+    <target name="restartRailo" description="Restarts the Railo server.">
+        <get src="http://${server.name}:${server.port}/reload.cfm" dest="temp/output/output.txt" ignoreerrors="true" />
+    </target>
 
     <target name="runtests" description="Make output directories and run the MXUnit task">
         <delete dir="testresults"/>

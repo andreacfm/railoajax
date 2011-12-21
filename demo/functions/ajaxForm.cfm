@@ -9,7 +9,7 @@ window.onload = function(){
 </pre>
 
 <div id="messageBox" class="result"> </div>
-<form id="ajaxForm" action="/demo/functions/files/save.cfm">
+<form id="ajaxForm" action="/demo/functions/files/save.cfm" method="POST">
   <label>Name</label><input type="text" name="name"><br>
   <label>Address</label><input type="text" name="address"><br/>
   <label>Phone</label><input type="text" name="phone"><br/><br/>
@@ -57,13 +57,13 @@ function highlight(id){
 Railo.Events.subscribe(highlight,'Railo.AfterInnerHtml');
 
 window.onload = function(){
-	Railo.Ajax.ajaxForm('ajaxForm','messageBox');	
-	Railo.Ajax.ajaxForm('ajaxForm2','messageBox2');	
+	Railo.Ajax.ajaxForm('ajaxForm','messageBox');
+	Railo.Ajax.ajaxForm('ajaxForm2','messageBox2');
 }	
 </script>
 
 <div id="messageBox2" class="result"> </div>
-<form id="ajaxForm2" action="/demo/functions/files/save.cfm">
+<form id="ajaxForm2" action="/demo/functions/files/save.cfm" method="POST">
   <label>Name</label><input type="text" name="name"><br><br>
   <input type="submit" class="submitButton" value="Submit"/>
 </form>
