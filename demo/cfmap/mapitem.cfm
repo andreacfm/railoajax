@@ -1,5 +1,4 @@
-<cfset key = 'ABQIAAAAeu0Td2YVlOPq6y8EytJWJBT2yXp_ZAY8_ufC3CFXhHIE1NvwkxTZumvxeaCz-DWk43YtoFFAKySnsA' />
-
+<cfset key = 'AIzaSyBWyEeTKA6ikzmFdflJBIWHxiqQH_Ez_sk' />
 <cfajaximport params="#{googlemapkey = key }#" />
 
 <h2>CfMapitem</h2>

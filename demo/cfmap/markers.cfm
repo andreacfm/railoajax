@@ -1,8 +1,4 @@
-<cfset key = 'ABQIAAAAeu0Td2YVlOPq6y8EytJWJBT2yXp_ZAY8_ufC3CFXhHIE1NvwkxTZumvxeaCz-DWk43YtoFFAKySnsA' />
-<cfif findNoCase('projects.getrailo.org',cgi.http_host)>
-	 <cfset key = 'ABQIAAAAeu0Td2YVlOPq6y8EytJWJBQrwY-N4pzRBQldrVz4T-XjvwgWPxRM3fX3k_q_DOCaBZuweff1O-lTwg' />
-</cfif>
-
+<cfset key = 'AIzaSyBWyEeTKA6ikzmFdflJBIWHxiqQH_Ez_sk' />
 <cfajaximport params="#{googlemapkey = key }#" />
 
 <h2>CfMap Markers</h2>

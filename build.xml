@@ -150,27 +150,5 @@
         <get src="http://${server.name}:${server.port}/reload.cfm" dest="temp/output/output.txt" ignoreerrors="true" />
     </target>
 
-    <target name="runtests" description="Make output directories and run the MXUnit task">
-        <delete dir="testresults"/>
-        <mkdir dir="testresults"/>
-        <taskdef name="mxunittask"
-                 classname="org.mxunit.ant.MXUnitAntTask"
-                 classpath="${basedir}/mxunit/ant/lib/mxunit-ant.jar"/>
-        <mxunittask server="railo-ajax" port="8080"
-                    outputdir="testresults"
-                    verbose="true">
-            <directory path="${basedir}/test" recurse="true" componentPath="test"/>
-        </mxunittask>
-
-        <mkdir dir="testresults/junithtml"/>
-        <junitreport todir="testresults/junithtml">
-            <fileset dir="testresults">
-                <include name="*.xml"/>
-            </fileset>
-            <report format="noframes" todir="testresults/junithtml" styledir="${basedir}/mxunit/ant/xsl"/>
-        </junitreport>
-
-    </target>
-
 </project>
 
