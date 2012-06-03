@@ -32,8 +32,14 @@
 							'title':'CFDiv Example',
 							'css':[],
 							'js':[]
-							}
-						]
+							},
+                        {   'url':'cfdiv/refresh.cfm',
+                            'name':'Refresh the div',
+                            'title':'Refresh the div programmatically',
+                            'css':[],
+                            'js':[]
+                            }
+                        ]
 					},
 					{	'name':'CFWindow', 'links':[
 						{	'url':'cfwindow/cfwindow.cfm',
@@ -150,47 +156,6 @@
 							}
 						]	
 					},
-					/* CFMENU by MrBuzzy.org
-					{	'name':'cfmenu', 'links':[
-						{	'url':'cfmenu/cfmenu.cfm',
-							'name':'cfmenu',
-							'title':'cfmenu',
-							'css':[],
-							'js':[]
-							},
-					{	'url':'cfmenu/cfmenuitem.cfm',
-							'name':'cfmenuitem',
-							'title':'cfmenuitem',
-							'css':[],
-							'js':[]
-							},															
-							
-
-					{	'url':'cfmenu/cfmenu-example1.cfm',
-							'name':'example: vertical',
-							'title':'cfmenu example 1',
-							'css':[],
-							'js':[]
-							},															
-							
-
-					{	'url':'cfmenu/cfmenu-example2.cfm',
-							'name':'example: horizontal',
-							'title':'cfmenu example 2',
-							'css':[],
-							'js':[]
-							},															
-						]	
-					},						
-					{	'name':'Functions', 'links':[
-						{	'url':'cf-functions/ajaxOnLoad.cfm',
-							'name':'AjaxOnLoad',
-							'title':'AjaxOnLoad',
-							'css':[],
-							'js':[]
-							}							
-						]
-					},*/
 					{	'name':'Javascript Functions', 'links':[
 						{	'url':'functions/submitForm.cfm',
 							'name':'Railo.Ajax.submitForm',

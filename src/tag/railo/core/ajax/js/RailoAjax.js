@@ -260,7 +260,7 @@ dispatchEvent : function(ev,d,c){
 	var publisher = _e[ev.name];
 	publisher.deliver(ev);
 
-},	
+},
 
 
 

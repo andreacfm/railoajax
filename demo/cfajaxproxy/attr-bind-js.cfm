@@ -8,19 +8,13 @@ updateDiv1 = function(data){
   document.getElementById('myDiv1').innerHTML = data;			
 }										
 </script>
+
 <p>Bind to a single form element in the page. <br/>
 Binding string means : <i>onChange bind value of field with name 'myName'
 and look for it into a container with id 'myForm'.</i>
 </p>
-<pre>
-&lt;cfajaxproxy bind="javascript:updateDiv1({myForm:myName})" />	
-**************************************************************
-Js Function
-**************************************************************
-updateDiv1 = function(data){							
-  document.getElementById('myDiv1').innerHTML = data;			
-}										
-</pre>
+<script src="https://gist.github.com/2863856.js?file=js-bind-1.cfm"></script>
+
 <form id="myForm" action="attr-bind-js.cfm##">
   <label>myName</label>
   <input type="text" name="myName">
@@ -40,17 +34,9 @@ updateDiv2 = function(data){
   document.getElementById('myDiv2').innerHTML = str;			
 }										
 </script>
-<pre>
-&lt;cfajaxproxy bind="javascript:updateDiv2({myForm2:myName},{myForm2:myAge})" />	
 
-**************************************************************
-Js Function
-**************************************************************
-updateDiv2 = function(data){
-  var str = 'My name is ' + data["myName"] + ' and I am ' + data["myAge"] + ' years old';
-  document.getElementById('myDiv2').innerHTML = str;			
-}										
-</pre>
+<script src="https://gist.github.com/2863856.js?file=js-bind-2.cfm"></script>
+
 <form id="myForm2">
   <label>myName</label><input type="text" name="myName"><br>
   <label>myAge</label><input type="text" name="myAge">

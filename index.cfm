@@ -1,1 +1,1 @@
-<cflocation url="/demo">
+<cflocation url="/demo" addtoken="false">
