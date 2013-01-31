@@ -5,18 +5,20 @@
 <script src="https://gist.github.com/2863851.js?file=cfdiv-4.cfm"></script>
 
 <cfdiv bind="url:/demo/cfdiv/files/time.cfm" bindonload="true" id="my_div"/>
-<input type="button" onclick="Railo.Ajax.refresh('mydiv3')" class="submitButton" value="Refresh div 'mydiv3"/>
+<input type="button" onclick="Railo.Ajax.refresh('my_div')" class="submitButton" value="Refresh div 'my_div"/>
 
 <p>
-Note that if bindOnLoad is false you cannot call refresh until page has not been loaded. This is due to the fact that teh binding object
-is created onLoad. Calling the refresh methods before the window onLoad events gets fired will try to use a not yet existing binding.
+Note that if bindOnLoad is false you cannot call refresh until page has not been loaded. This is due to the fact that the binding object
+is created onLoad. Calling the refresh methods before the window onLoad events gets fired will fail trying to invoke a not yet existing binding.
 </p>
+
+<br><br>
 
 <script src="https://gist.github.com/2863851.js?file=cfdiv-5.cfm"></script>
 
-<cfdiv bind="url:/demo/cfdiv/files/time.cfm" bindonload="true" id="abother_div"/>
+<cfdiv bind="url:/demo/cfdiv/files/time.cfm" bindonload="false" id="another_div"/>
 <script type="text/javascript">
-    Railo.Events.subscribe(function(){Railo.Ajax.refresh('my_div')},'abother_div');
+    Railo.Events.subscribe(function(){Railo.Ajax.refresh('another_div')},'onLoad');
 </script>
 <p>
 In the previous example bindOnLoad is false. The div is loaded by calling Refresh after page has loaded. In details the internal
