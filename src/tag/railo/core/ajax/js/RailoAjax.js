@@ -5,18 +5,18 @@
 
 var Railo = (function(){
 
-	
+
 /**
  *Private - Railo.Bind.jsBindHandler
  *@property _RAILO_JS_BIND_HANDLER
- *@type String  
+ *@type String
  */
 var _RAILO_JS_BIND_HANDLER = 'Railo.Bind.jsBindHandler';
 
 /**
  *Private - Railo.Bind.cfcBindHandler
  *@property _RAILO_CFC_BIND_HANDLER
- *@type String  
+ *@type String
  */
 
 var _RAILO_CFC_BIND_HANDLER = 'Railo.Bind.cfcBindHandler';
@@ -24,7 +24,7 @@ var _RAILO_CFC_BIND_HANDLER = 'Railo.Bind.cfcBindHandler';
 /**
  *Private - Railo.Bind.urlBindHandler
  *@property _RAILO_URL_BIND_HANDLER
- *@type String  
+ *@type String
  */
 
 var _RAILO_URL_BIND_HANDLER = 'Railo.Bind.urlBindHandler';
@@ -32,7 +32,7 @@ var _RAILO_URL_BIND_HANDLER = 'Railo.Bind.urlBindHandler';
 /**
  *Private - ['json','plain','wddx']
  *@property _RAILO_CFC_RETURN_FORMATS
- *@type Array  
+ *@type Array
  */
 var _RAILO_CFC_RETURN_FORMATS = ['json','plain','wddx'];
 
@@ -49,18 +49,18 @@ return {
 
 /**
  * Initialize the Railo JS environment.
- * Register the internal 'onLoad' event and dispatch it on Window 'onLoad' Event. 
+ * Register the internal 'onLoad' event and dispatch it on Window 'onLoad' Event.
  * @base Railo
  */
 init: function(){
 	/*
 	 * Internal onLoad event that rely on global window.onLoad.
 	 */
-	Railo.Events.registerEvent('onLoad');			
-	
+	Railo.Events.registerEvent('onLoad');
+
 	window.onload = function(){
 		Railo.Events.dispatchEvent('onLoad');
-	}			
+	}
 
 },
 
@@ -87,25 +87,25 @@ globalErrorHandler : function(err,data){
 	alert(t);
 },
 
-		
+
 /**
  * Public loadedResources
  * @property loadedResources
  * @type Array
  */
 loadedResources : []
-		
+
 }
 })();
 
 
 
 /**
- * Messages are filtered by Railo.Util.template. Used by global error handler to 
+ * Messages are filtered by Railo.Util.template. Used by global error handler to
  * produce useful alerts.
  * {0} = replaced by the element with index 0 of the array passed to 'template' function
  * @base Railo
- * @class Message 
+ * @class Message
  */
 Railo.Message = {
 
@@ -117,17 +117,17 @@ Railo.Message = {
 		librayNotSupported : 'Library {0} is not supported in this context',
 		providerNotSupported : 'Data Provider {0} is not supported in this context'
 	},
-	
-	window : {	
+
+	window : {
 		windowNotFound : 'The Window with name {0} has not been found!',
 		windowAlreadyExists : 'The Window with name {0} already exists!'
 	},
-	
-	layout : {	
+
+	layout : {
 		LayoutNotFound : 'The Layout with name {0} has not been found!',
 		LayoutHasNoChildren : 'The Layout with name {0} has no layoutareas!'
 	}
-	
+
 };
 
 
@@ -140,15 +140,15 @@ Railo.adapters = {};
 
 /**
  * Railo.Events
- */ 	
+ */
 Railo.Events =  (function(){
 
 /**
  * Events repository
  */
 var _e = {};
-	
-	
+
+
 
 /**
  * P
@@ -166,68 +166,68 @@ var _P = function(){
 			 }
 		}
 		s.push(obj);
-	}		
+	}
 	this.deliver = function(ev) {
 		/* only the data field is passed to the listeners to have better performance*/
 		for (var i=0 ; i < s.length ; i ++ ){
 			s[i](ev.data);
 		}
-		var c = ev.callback;			
+		var c = ev.callback;
 		if(typeof(c) == 'function'){
 			c(ev);
-		}			
+		}
 		return this;
 	}
-		
+
 };
-	
-	
-	
+
+
+
 /**
  * @private
  * @param {string} n
  * @param {Object} d
  * @param {Function} c ( not used in Railo Implementation )
- */	
-var _Event = function(n,d,c){							
+ */
+var _Event = function(n,d,c){
 	this.name = n;
-	this.data = d;		
+	this.data = d;
 	this.callback = c;
-};				
-	
+};
 
-return{	
-	
-	
+
+return{
+
+
 /**
  * registerEvent
- * Add a new event to the events engine. 
+ * Add a new event to the events engine.
  * If an event has already been loaded request is skipped. NAME MATTER!!!!!!!!!!!!!!!!!
- * 
+ *
  * @return void
  * @param {String} name
  */
 registerEvent : function(name){
 	if(!_e[name]){
-		_e[name] = new _P(); 							
+		_e[name] = new _P();
 	}
-},	
-		
+},
+
 
 
 /**
  * PUBLIC removeEvent
  * remove an event from the engine.
- * 
+ *
  * @return void
  * @param {String} name
- */		
+ */
 removeEvent : function(name){
 	_e[name];
 },
 
 
-		
+
 /**
  * subscribe
  * @return void
@@ -235,21 +235,21 @@ removeEvent : function(name){
  * @param {String} ev
  * @hint An obj subscribe to listen to the required event. Event are matched by name.
  */
-subscribe : function(o,ev){				
+subscribe : function(o,ev){
 	if(!_e[ev]){
 		throw('Event ' + ev + ' do not exists!');
-	}		
+	}
 	var p = _e[ev];
-	p.subscribe(o);	
-},		
-				
+	p.subscribe(o);
+},
+
 
 
 /**
  * dispatchEvent
- * @return void 
+ * @return void
  * @param {Object} ev
- * @hint Dispatch an event. If a string ( in place of the event object ) is passed an event obejct 
+ * @hint Dispatch an event. If a string ( in place of the event object ) is passed an event obejct
  * is generated before calling the deliver method.
  */
 
@@ -269,7 +269,7 @@ dispatchEvent : function(ev,d,c){
  * @return {Object}
  * @hint Return the events repository object
  */
-getEvents : function(){			
+getEvents : function(){
 	return _e;
 },
 
@@ -280,7 +280,7 @@ getEvents : function(){
  * @param {Object} data
  * @param {Object} callback
  * @return {Object}
- * @hint Generate a new event object 
+ * @hint Generate a new event object
  */
 newEvent : function(n,d,c){
 	return new _Event(n,d,c);
@@ -323,12 +323,12 @@ Railo.XHR.prototype = {
 /**
  * Perform the asynch calls
  * @param {Object} opt
- */  
+ */
 request: function(opt){
 
 	/* required */
 	if(!opt.url){throw('Url is required!');}else{url=opt.url}
-	
+
 	/* defaults */
 	var type = opt.type ? opt.type : 'GET';
 	var async = true;
@@ -361,7 +361,7 @@ request: function(opt){
 		var rand_no = Math.ceil(Math.random()*1000000000);
 		qs = qs + '&_' + rand_no;
 	}
-	
+
 	if(type.match(/get/i) && (qs)){
         if(url.match(/[\?]/) && !url.match(/[\?]$/)){
             url = url + '&';
@@ -372,10 +372,10 @@ request: function(opt){
 	}
 
 	x.onreadystatechange = function() {
-	  		
+
 	    if(x.readyState !== 4) return;
-	    
-		if(x.status == 200){			
+
+		if(x.status == 200){
 			var data = x.responseText;
 			/*
 			 * Parse as JSON if required.
@@ -386,21 +386,21 @@ request: function(opt){
 			}else{
 				data = data.replace(/\r\n/g, "");
 			}
-			
+
 			/*
 			 * If exist a success callback call it.
-			 */	
+			 */
 			if(typeof(success) == 'function'){
 				success(data,x.statusText);
 			}
-	
+
 		}else{
-	
+
 			if(error){
 				error(x,x.status,x.statusText);
 			}
 		}
-	
+
 	};
 
 	x.open(type, url, async);
@@ -419,13 +419,13 @@ request: function(opt){
 
 	x.send(qs);
 
-	return x;	
+	return x;
 },
- 
+
 /**
  * @classDescription XHR factory
  * @return {XHR}
- */  
+ */
 createXhrObject: function() {
 	var methods = [
 		function() { return new XMLHttpRequest(); },
@@ -440,41 +440,41 @@ createXhrObject: function() {
   		catch(e){
     		continue;
   		}
-  		
-		this.createXhrObject = methods[i]; 
-		
+
+		this.createXhrObject = methods[i];
+
   		return methods[i]();
 	}
 
 	throw new Error('XHR: Could not create an XHR object.');
 
-} 
+}
 };
 
 
 
 
 /*********************************************************************************************
- * Railo.Ajax 
+ * Railo.Ajax
  *********************************************************************************************/
 
 Railo.Ajax = (function(){
-	
-	/* 
+
+	/*
 	 * xhr instance. Just one for all the needs.
-	 */ 
+	 */
 	var xhr = new Railo.XHR();
 
-	
+
 /**
  * TAG CONFIGS
  * Any time function doImport run for a specific tag use this configuration for :
  * 1) Load necessary js resources.
  * 2) Register events that will be dispatched by the TAG concrete implementation.
- * 
+ *
  * The whole object is passed as argument by Railo.beforeDoImport event and can be customized as needed
  */
-var config = {		
+var config = {
 	"CFAJAXPROXY" : {
 		js : [],
 		events : []
@@ -486,14 +486,14 @@ var config = {
 	"CFMAP"		: {
 		provider: {
 			'google' : ['http://maps.google.com/maps?file=api&v=2&key={_cf_params.GOOGLEMAPKEY}&sensor=false','google/google-map']
-		}, 
+		},
 		js : ['RailoMap'],
 		events :[]
 	},
 	"CFWINDOW" : {
 		libs : {
-			'jquery' : ['jquery/jquery-1.4.2','jquery/jquery-ui-1.8.2','jquery/jquery.window'],
-			'ext' : ['ext/ext-base','ext/ext-all','ext/ext.window']				 
+			'jquery' : ['jquery/jquery-1.8.3','jquery/jquery-ui-1.8.2','jquery/jquery.window'],
+			'ext' : ['ext/ext-base','ext/ext-all','ext/ext.window']
 		},
 		js : ['RailoWindow'],
 		events : [
@@ -508,8 +508,8 @@ var config = {
 	},
 	"CFLAYOUT-TAB" : {
 		libs : {
-			'jquery' : ['jquery/jquery-1.4.2','jquery/jquery-ui-1.8.2','jquery/jquery.layout'],
-			'ext' : ['ext/ext-base','ext/ext-all','ext/ext.layout']				 
+			'jquery' : ['jquery/jquery-1.8.3','jquery/jquery-ui-1.8.2','jquery/jquery.layout'],
+			'ext' : ['ext/ext-base','ext/ext-all','ext/ext.layout']
 		},
 		js : ['RailoLayout'],
 		events : [
@@ -531,7 +531,7 @@ var config = {
 };
 
 
-	
+
 /**
  * CSS CONFIGS
  * Tag that need to load css resources
@@ -541,16 +541,16 @@ var cssConfigs = {
 
 		"CFWINDOW" : {
 			'jquery' : ['jquery/RailoSkin'],
-			'ext' : ['ext/css/RailoSkin']		 
+			'ext' : ['ext/css/RailoSkin']
 		},
 
 		"CFLAYOUT-TAB" : {
 			'jquery' : ['jquery/RailoSkin'],
-			'ext' : ['ext/css/RailoSkin']		 
+			'ext' : ['ext/css/RailoSkin']
 		}
-		
+
 };
-	
+
 
 
 /**
@@ -576,7 +576,7 @@ function isValidReturnFormat(f){
  * @classDescription Verify if an external resource has already been loaded.
  * @param {String} library
  * @return {Boolean}
- */	
+ */
 function isLibLoaded(lib){
 	var result = false;
 	for(var i=0; i < Railo.loadedResources.length; i++){
@@ -590,26 +590,26 @@ function isLibLoaded(lib){
  * Load any dependency needed by a specific tag and register the events that the concrete tag
  * implementation will dispatch.
  * Use config object.
- * 
+ *
  * @param {String} name Tag name to be imported
  * @return void
- */	
+ */
 function doImport(name,lib,provider,src){
-		
+
 	if(!config[name]){
 		Railo.globalErrorHandler('ajax.tagDoNotExists',[name]);
 	}
-	
+
 	/* jquery is the default library */
 	if(!lib){lib = 'jquery';}
 
 	if(_cf_params.jslib){lib = _cf_params.jslib;}
 
 	if(!provider){provider = null;}
-	
+
 	/*if an src is provided use that*/
-	src = src != undefined ? src : _cf_ajaxscriptsrc; 
-	
+	src = src != undefined ? src : _cf_ajaxscriptsrc;
+
 	var ev = Railo.Events.newEvent('Railo.beforeDoImport',config);
 	Railo.Events.dispatchEvent(ev);
 
@@ -623,12 +623,12 @@ function doImport(name,lib,provider,src){
 			Railo.Events.registerEvent(config[name]['events'][i]);
 		}
 	}
-	
+
 	/*
 	 * If the tag has a lib node:
 	 * Check that lib is supported and then load resources.
 	 */
-	if(config[name].libs){	
+	if(config[name].libs){
 		if(typeof(config[name]['libs'][lib]) == 'undefined'){
 			Railo.globalErrorHandler('ajax.librayNotSupported',[lib]);
 		}
@@ -641,7 +641,7 @@ function doImport(name,lib,provider,src){
 				i = 1;
 			}
 		}
-		
+
 		for(i; i < config[name]['libs'][lib].length; i++){
 			if(!isLibLoaded(config[name]['libs'][lib][i])){
 				document.write('<script type="text/javascript" src="' + _cf_ajaxscriptsrc + config[name]['libs'][lib][i] + '"><\/script>');
@@ -656,7 +656,7 @@ function doImport(name,lib,provider,src){
 	if(cssConfigs[name]){
 		for(i=0; i < cssConfigs[name][lib].length; i++){
 			if(!isLibLoaded(cssConfigs[name][lib][i])){
-				document.write('<link rel="stylesheet" type="text/css" href="' + _cf_ajaxcsssrc + cssConfigs[name][lib][i] + '.css.cfm"/>');												
+				document.write('<link rel="stylesheet" type="text/css" href="' + _cf_ajaxcsssrc + cssConfigs[name][lib][i] + '.css.cfm"/>');
 			}
 		}
 		Railo.loadedResources.push(cssConfigs[name][lib][i]);
@@ -665,7 +665,7 @@ function doImport(name,lib,provider,src){
 	/*
 	 * If the tag has a provider load that.
 	 */
-	if(config[name].provider){	
+	if(config[name].provider){
 		if(typeof(config[name]['provider'][provider]) == 'undefined'){
 			Railo.globalErrorHandler('ajax.providerNotSupported',[provider]);
 		}
@@ -675,18 +675,18 @@ function doImport(name,lib,provider,src){
 				var regex = new RegExp('\{.*\}','g');
 				var match = str.match(regex);
 				if(match){
-					str = str.replace(match[0],eval(match[0].replace("\"|\{|\}","")));					
+					str = str.replace(match[0],eval(match[0].replace("\"|\{|\}","")));
 				}
 				if(Railo.Util.isUrl(str)){
-					document.write('<script type="text/javascript" src="' +  str + '"><\/script>');				
+					document.write('<script type="text/javascript" src="' +  str + '"><\/script>');
 				}else{
-					document.write('<script type="text/javascript" src="' + src + config[name]['provider'][provider][i] + '"><\/script>');					
+					document.write('<script type="text/javascript" src="' + src + config[name]['provider'][provider][i] + '"><\/script>');
 				}
 				Railo.loadedResources.push(config[name]['provider'][provider][i]);
 			}
 		}
 	}
-	
+
 	/*
 	 * Load js resources as per config object in
 	 * {TAG}.{'js'}.[filenames with mime extension]
@@ -699,7 +699,7 @@ function doImport(name,lib,provider,src){
 		}
 	}
 }
-	
+
 
 return{
 
@@ -708,7 +708,7 @@ return{
  * @classDescription Exposed interface to load tag dependencies.
  * @param {String} name
  * @return void
- */		
+ */
 importTag : function(name,lib,provider,src){
 	doImport(name,lib,provider,src);
 },
@@ -716,8 +716,8 @@ importTag : function(name,lib,provider,src){
 
 
 /**
- * @hint Internal Callback for perform self innerHtml. 
- * By default is invoked anytime exists a bintTo parameter 
+ * @hint Internal Callback for perform self innerHtml.
+ * By default is invoked anytime exists a bintTo parameter
  * @param {String} d data
  * @param {String} t text
  * @param {Object} b bindObject
@@ -726,31 +726,31 @@ innerHtml : function(d,t,b){
 	document.getElementById(b.bindTo).innerHTML = d;
 	/* dispatch an event to advise that html has been dropped in the passed id element*/
 	Railo.Events.dispatchEvent('Railo.AfterInnerHtml',b.bindTo);
-},	
-
-
-		
-/** 
- * @hint Show the Loader item as per variable _cf_loadingtexthtml.
- * An hide method do not exists cause loader is displayed in the same area where 
- * result will be inserted overwriting it.
- * @param {id} Id of the dom element where loader will be injected.
- * @return void	
- */
-showLoader : function(id){
-	document.getElementById(id).innerHTML = _cf_loadingtexthtml;	
 },
 
 
 
 /**
- * Global ajax error handler. 
+ * @hint Show the Loader item as per variable _cf_loadingtexthtml.
+ * An hide method do not exists cause loader is displayed in the same area where
+ * result will be inserted overwriting it.
+ * @param {id} Id of the dom element where loader will be injected.
+ * @return void
+ */
+showLoader : function(id){
+	document.getElementById(id).innerHTML = _cf_loadingtexthtml;
+},
+
+
+
+/**
+ * Global ajax error handler.
  * Filter error and call error callback.
  * @param {Array} data [
- * 		  XmlHttpRequest object, 
+ * 		  XmlHttpRequest object,
  * 		  Error text from jquery ajax object,
- *        Bind object (or any object that contain an errorHandler item to be fired if provided)] 
- * @return void          
+ *        Bind object (or any object that contain an errorHandler item to be fired if provided)]
+ * @return void
  */
 exceptionHandler : function(data){
 	var xhr = data[0];
@@ -763,7 +763,7 @@ exceptionHandler : function(data){
 	 * - The object passed from Railo.Bind Handler or by Railo.AjaxProxy ( bind object or Ajax configs ).
 	 */
 	if(typeof(bind.errorHandler) == 'function'){
-		bind.errorHandler(xhr.status,xhr.statusText,bind);				
+		bind.errorHandler(xhr.status,xhr.statusText,bind);
 	}else{
 		/*
 		 * If no custom handler exists go on with built in handlers filters.
@@ -776,7 +776,7 @@ exceptionHandler : function(data){
 			alert('An unknown error occurred during the ajax call!');
 		}
 	}
-},	
+},
 
 
 	/*
@@ -784,12 +784,12 @@ exceptionHandler : function(data){
 		 * @param {Object} o Object with the $.ajax candidate set up.
 		 */
 		call : function(o){
-			// required			
+			// required
 			if(!o.url){throw('Url argument is missing.')};
 			// not required
 			o.type = o.httpMethod || 'GET';
 			o.returnFormat = o.returnFormat || 'json';
-			if(o.async == 'undefined'){o.async = true;} 
+			if(o.async == 'undefined'){o.async = true;}
 			o.success = o.callbackHandler || null;
 			o.error = o.errorHandler || null;
 			o.beforeSend = o.beforeSend || null;
@@ -803,32 +803,32 @@ exceptionHandler : function(data){
 			if(o.argumentCollection){
 				// validate the returnFormat value
 				if(!isValidReturnFormat(o.returnFormat)){
-					throw('ReturnFormat ' + o.returnFormat + ' is not valid. Valid values are: ' + _RAILO_CFC_RETURN_FORMATS.join(','));				
+					throw('ReturnFormat ' + o.returnFormat + ' is not valid. Valid values are: ' + _RAILO_CFC_RETURN_FORMATS.join(','));
 				}
 				if(!o.method){throw('Method argument is missing.')};
 				o.data = {
 					method : o.method,
 					returnFormat : o.returnFormat,
-					argumentCollection : Railo.Json.encode(o.argumentCollection)				
+					argumentCollection : Railo.Json.encode(o.argumentCollection)
 				}
 				if(o.queryFormat){
 					o.data.queryFormat = o.queryFormat;
-				}				
+				}
 			}
 			return xhr.request(o);
 		},
-		
+
 /*************************************************************************************************
  * PUBLIC submitForm
- * 
- * @param {String} R formId 
- * @param {String} R url 
+ *
+ * @param {String} R formId
+ * @param {String} R url
  * @param {Function} callbackhandler
  * @param {Function} errorhandler
  * @param {String} httpMethod  Default 'POST'
  * @param {Sgtring} asynch
- * @param {Function} beforeSend 
- * @param {String} returnFormat Default 'plain'  
+ * @param {Function} beforeSend
+ * @param {String} returnFormat Default 'plain'
   *************************************************************************************************/
 		submitForm : function(formId,url,callbackhandler,errorhandler,httpMethod,asynch,returnFormat,beforeSend){
 			var c = {};
@@ -845,7 +845,7 @@ exceptionHandler : function(data){
 
 			c.success = callbackhandler || null;
 			c.error = errorhandler || null;
-			c.beforeSend = beforeSend || null;			
+			c.beforeSend = beforeSend || null;
 			c.type = httpMethod || 'POST';
 			c.dataType = returnFormat || 'plain';
 			if(asynch == null){c.async = true}else{c.async = asynch};
@@ -869,34 +869,34 @@ exceptionHandler : function(data){
  * @param {Function} errorhandler
  * @param {String} returnFormat
  * @param {Function} beforeSend
- */		
-		ajaxForm : function(formId,target,callbackhandler,errorhandler,returnFormat,beforeSend){		
-			
+ */
+		ajaxForm : function(formId,target,callbackhandler,errorhandler,returnFormat,beforeSend){
+
 			var c = {};
-			
+
 			if(!formId){
 				Railo.globalErrorHandler('ajax.parameterMissing',['ajaxSubmit','formId']);
 				return;
-			}			
+			}
 
 			if(target){
 				var targetEl = document.getElementById(target);
 				if(!targetEl){
 					Railo.globalErrorHandler('ajax.targetMissing',['ajaxSubmit',target]);
-					return;					
+					return;
 				}
 			}
-						
+
 			var form = document.getElementById(formId);
-			
+
 			// not required   \
 			c.type = form.method || 'POST';
-			c.url = form.action;	
+			c.url = form.action;
 			c.success = callbackhandler || null;
 			c.error = errorhandler || null;
-			c.beforeSend = beforeSend || null;			
+			c.beforeSend = beforeSend || null;
 			c.dataType = returnFormat || 'plain';
-			
+
 			if(target){
 				c.success = function(data,textStatus){
 					var b = {bindTo : target};
@@ -905,25 +905,25 @@ exceptionHandler : function(data){
 			}
 
 			Railo.Util.addEvent(form,'submit',function(e){
-				if(e.preventDefault){ 
+				if(e.preventDefault){
 					e.preventDefault()
 				}else{
 					e.returnValue = false;
 				};
 			 	c.data = Railo.Form.serialize(formId);
 				xhr.request(c);
-				return false;							
+				return false;
 			 })
 		},
 
 /**
- * Passing the name ( or id for cfdiv ) used in the configuration trigger the underlined bind. 
+ * Passing the name ( or id for cfdiv ) used in the configuration trigger the underlined bind.
  * @param {Object} id
- */		
+ */
 		refresh : function(id){
 			Railo.Events.dispatchEvent(id,Railo.Bind.getBind(id));
 		}
-	
+
 	}
 })();
 
@@ -933,7 +933,7 @@ exceptionHandler : function(data){
  */
 Railo.ajaxProxy = {};
 
-/* 
+/*
  * @param {String} cfcPath relative path to the proxied cfc
  * @param {String} jsClass name of the js variable that will incapsulate the proxy object
  */
@@ -948,12 +948,12 @@ Railo.ajaxProxy.init = function(a,b){
 	 * Error event
 	 */
 	var errorEvent = b + '_errorEvent';
-	
-	/* 
-	 * Proxy Class to make instance of 
+
+	/*
+	 * Proxy Class to make instance of
 	 */
-	window[b] = function(){		
-	
+	window[b] = function(){
+
 		this.cfcPath = a;
 		this.async = true;
 		this.httpMethod = 'GET';
@@ -963,7 +963,7 @@ Railo.ajaxProxy.init = function(a,b){
 		this.formId;
 		this.queryFormat;
 		this.errorEvent = errorEvent;
-		
+
 		this.setHTTPMethod = function(h){
 			this.httpMethod = h;
 		}
@@ -981,36 +981,36 @@ Railo.ajaxProxy.init = function(a,b){
 		}
 		this.setSyncMode = function(){
 			this.async = false;
-		}	
+		}
 		this.setForm = function(id){
 			this.formId = id;
-		}	
+		}
 		this.setQueryFormat = function(q){
 			this.queryFormat = q;
-		}	
+		}
 	}
 	/*
 	 * Set the prototype chain
 	 */
 	window[b].prototype = new obj();
-	
+
 	/*
 	 * create the error event
 	 */
 	Railo.Events.registerEvent(errorEvent);
-	Railo.Events.subscribe(Railo.Ajax.exceptionHandler,errorEvent);		
+	Railo.Events.subscribe(Railo.Ajax.exceptionHandler,errorEvent);
 
 	return obj;
-	
+
 };
 
 /************************************************************************************************************
  * invokeMethod
- * 
+ *
  * @param {Object} obj Proxy object instance calling the method
  * @param {String} method Method to call on the cfc
  * @param {Object} args Arguments to be passed as argumentCollection
- ************************************************************************************************************/	
+ ************************************************************************************************************/
 Railo.ajaxProxy.invokeMethod = function(o,m,a){
 	/*
 	 * Analize the arguments passed.
@@ -1033,14 +1033,14 @@ Railo.ajaxProxy.invokeMethod = function(o,m,a){
 	}
 	/*
 	 *  If a form id exists all fields are serialized into a literal object then reversed into the arguments obejct.
-	 */ 
+	 */
 	if(o.formId){
 		var f = Railo.Form.serialize(o.formId);
 		for(key in f){
 			arg[key] = f[key];
 		}
 	}
-	
+
 	var c = {
 		url : o.cfcPath,
 		method : m,
@@ -1071,19 +1071,19 @@ Railo.ajaxProxy.invokeMethod = function(o,m,a){
 		c.async = false;
 	}
 	var r = Railo.Ajax.call(c);
-	
+
 	/*
 	 * Return result only if call is sync
 	 * We need extra parsing cause XHR parse result before passing it to the success callback but
 	 * do not write the internal status.
 	 */
-	if((!c.async)){	
+	if((!c.async)){
 		var data = r.responseText;
 		if(o.returnFormat == 'json'){
 			data = Railo.Json.decode(data);
 		}else{
 			data = data.replace(/\r\n/g, "");
-		}		
+		}
 		return data;
 	}
 
@@ -1091,24 +1091,24 @@ Railo.ajaxProxy.invokeMethod = function(o,m,a){
 
 
 /*************************************************************************************************
- * FORM 
+ * FORM
  * Utility that extend normal browser form serialization and support form ajax form submission.
- * 
+ *
  * Serialization from http://malsup.com/jquery  form.js jquery plugin
  *************************************************************************************************/
 
 Railo.Form = (function(){
-	
+
 	function fieldValue(el, successful) {
 	    var n = el.name, t = el.type, tag = el.tagName.toLowerCase();
 	    if (typeof successful == 'undefined') successful = true;
-	
+
 	    if (successful && (!n || el.disabled || t == 'reset' || t == 'button' ||
 	        (t == 'checkbox' || t == 'radio') && !el.checked ||
 	        (t == 'submit' || t == 'image') && el.form && el.form.clk != el ||
 	        tag == 'select' && el.selectedIndex == -1))
 	            return null;
-	
+
 	    if (tag == 'select') {
 	        var index = el.selectedIndex;
 	        if (index < 0) return null;
@@ -1131,7 +1131,7 @@ Railo.Form = (function(){
 	}
 
 	function formToArray(id) {
-	  
+
 		var a = [];
 	    var form = document.getElementById(id);
 	    var els = form.elements;
@@ -1141,7 +1141,7 @@ Railo.Form = (function(){
 	        var el = els[i];
 	        var n = el.name;
 			/* skip if no attribute name has found */
-	        if (!n) continue;	
+	        if (!n) continue;
 	        if (el.type == "image") {
 	            if(!el.disabled) {
 	            	a.push({
@@ -1151,7 +1151,7 @@ Railo.Form = (function(){
 	            }
 	            continue;
 	        }
-	
+
 	        var v = fieldValue(el, true);
 	        if (v && v.constructor == Array) {
 	            for(var j=0, jmax=v.length; j < jmax; j++)
@@ -1161,18 +1161,18 @@ Railo.Form = (function(){
 	            a.push({name: n, value: v});
 	    }
 	    return a;
-	}	
- 
+	}
+
 
     return {
 
 /**************************************************************************************************************
  * PUBLIC serialize
  * Return a literal object with the actual form value state. Ideal to be pushed into XHR object as data objetc.
- * 
+ *
  * @param {String} id
  * @return {Object} res Literal object that represent the actual form fields values.
- **************************************************************************************************************/		
+ **************************************************************************************************************/
 		serialize : function(id){
 			var a = formToArray(id);
 			var res = {};
@@ -1181,17 +1181,17 @@ Railo.Form = (function(){
 					res[a[i].name] = a[i].value;
 				}
 			}
-			return res;			
-		}	
+			return res;
+		}
 	}
-	  	
+
 })();
 
 
 Railo.Bind = (function(){
-	
+
 	var binds = [];
-	
+
 	function bindAdapter(arg){
 		arg[1].binds = [];
 		for(var i=0; i < arg[1].bindExpr.length;i++){
@@ -1202,65 +1202,65 @@ Railo.Bind = (function(){
 			if(arg[1].bindExpr[i][2] != ""){
 				o.contId = arg[1].bindExpr[i][2];
 			}
-			arg[1].binds.push(o);			
+			arg[1].binds.push(o);
 		}
 		arg[1].eventName = arg[0];
 		arg[1].errorEvent = arg[0] + 'errorHandler';
 		arg[1].listener = eval(arg[1].listener);
 		arg[1].errorHandler = eval(arg[1].errorHandler);
-		arg[1].els = eval(arg[1].listener);		
-		/* 
-		 * add a namespace for the beforeSend function interception 
+		arg[1].els = eval(arg[1].listener);
+		/*
+		 * add a namespace for the beforeSend function interception
 		 */
 		arg[1].beforeSend = "";
-		
+
 		binds[arg[1].eventName] = arg[1];
-		
+
 		/* register the error hanlder to be able to intercept parsing errors*/
 		Railo.Events.registerEvent(arg[1].errorEvent);
-		Railo.Events.subscribe(Railo.Ajax.exceptionHandler,arg[1].errorEvent);				
+		Railo.Events.subscribe(Railo.Ajax.exceptionHandler,arg[1].errorEvent);
 	}
-	
+
 	function getEls(b){
 		if(b.contId){
 			var els = Sizzle("[id='" + b.contId + "'] [name='" + b.name + "']");
 		}else{
-			var els = Sizzle("[name='" + b.name + "']");									
+			var els = Sizzle("[name='" + b.name + "']");
 		}
 		return els;
 	}
-	
+
 	function getData(b){
 		var data = {};
 		for (var j=0; j < b.binds.length; j++) {
 			if(b.binds[j].contId){
 				data[b.binds[j].label] = Sizzle("[id='" + b.binds[j].contId + "'] [name='" + b.binds[j].name + "']")[0].value;
 			}else{
-				data[b.binds[j].label] = Sizzle("[name='" + b.binds[j].name + "']")[0].value;									
+				data[b.binds[j].label] = Sizzle("[name='" + b.binds[j].name + "']")[0].value;
 			}
 		}
-		return data;		
+		return data;
 	}
 
 /**********************************************************************************************************
  * PRIVATE addBindToDefault
  * If a bind has a 'bindTo' means that the goal is to fill the element with id {bindTo}.
- * Added default need to show the loading animated gif and to ask XHR to parse returned value as 
- * plain before to pass them to the Railo.Ajax.innerHTML or other function specified as success callback. 
- * 
+ * Added default need to show the loading animated gif and to ask XHR to parse returned value as
+ * plain before to pass them to the Railo.Ajax.innerHTML or other function specified as success callback.
+ *
  * @param {Object} o XHR config object on final preparation step.
  * @param {Object} b Current Bind Obejct
  * @return void
- *********************************************************************************************************/	
+ *********************************************************************************************************/
 	function addBindToDefault(o,b){
 		o.returnFormat = 'plain';
 		if(typeof(o.beforeSend) != 'function'){
 			o.beforeSend = function(){
 				Railo.Ajax.showLoader(b.bindTo);
-			};			
+			};
 		}
 	}
-	
+
 
 	return{
 
@@ -1268,24 +1268,24 @@ Railo.Bind = (function(){
 /*********************************************************************************************************
  * PUBLIC getBind
  * Return the required stored bind object.
- * 
+ *
  * @param {Object} name
- *********************************************************************************************************/		
+ *********************************************************************************************************/
 		getBind : function(name){
 			return binds[name];
 		},
 
 
-		
+
 /********************************************************************************************************
- * PUBLIC register 
- * 
+ * PUBLIC register
+ *
  * @classDescription Craete a clean object from the Bind rules to inject proper info into the Handler setBind
  * @param {String} e  EventName
  * @param {Object} b  Bind rules
  * @param {Boolean} c If true binding events is dispatched after page load ends
  *
- ********************************************************************************************************/			
+ ********************************************************************************************************/
 		register : function(e,b,c){
 			var handler = eval(b.handler);
 			bindAdapter([e,b,c]);
@@ -1305,13 +1305,13 @@ Railo.Bind = (function(){
 				Railo.Events.dispatchEvent(b.eventName,b);
 			}
 		},
-		
+
 		cfcBindHandler : function(b){
 			var data = getData(b);
 			var o ={
 				url:b.url,
 				method:b.method,
-				beforeSend : b.beforeSend,	
+				beforeSend : b.beforeSend,
 				argumentCollection:data,
 				callbackHandler:function(d,t){
 					b.listener(d,t,b);
@@ -1321,33 +1321,33 @@ Railo.Bind = (function(){
 					Railo.Events.dispatchEvent(b.errorEvent,[x,y,b]);
 				}
 			}
-			/* 
-			 * If we bindTo an element we set some default 
+			/*
+			 * If we bindTo an element we set some default
 			 */
 			if(b.bindTo){
 				addBindToDefault(o,b);
 			}
 			Railo.Ajax.call(o);
 		},
-	
-		jsBindHandler : function(b){			
+
+		jsBindHandler : function(b){
 			var data = getData(b);
 			/* if data ha s1 item pass just the value*/
 			var len = 0;
 			for(k in data){var d = k;len++}
-			if(len == 1){data = data[d];}						
+			if(len == 1){data = data[d];}
 			b.listener(data);
-								
-		},		
+
+		},
 
 
 
 /********************************************************************************
  * URL BINDER HANDLER
- * 
- * beforeSend : add a beforeSend to the bind object to overwrite the default. 
+ *
+ * beforeSend : add a beforeSend to the bind object to overwrite the default.
  * 				Note that this run only if is defined a bindTo element.
- * 
+ *
  *******************************************************************************/
 		urlBindHandler : function(b){
 			var data = getData(b);
@@ -1357,7 +1357,7 @@ Railo.Bind = (function(){
 			var o = {
 				url: b.url,
 				data: data,
-				beforeSend : b.beforeSend,				
+				beforeSend : b.beforeSend,
 				callbackHandler:function(d,t){
 					b.listener(d,t,b);
 				},
@@ -1366,36 +1366,36 @@ Railo.Bind = (function(){
 					Railo.Events.dispatchEvent(b.errorEvent, [x, y, b]);
 				}
 			}
-		
-			/* 
-			 * If we bindTo an element we set some default 
+
+			/*
+			 * If we bindTo an element we set some default
 			 */
 			if(b.bindTo){
 				addBindToDefault(o,b);
 			}
-			
+
 			Railo.Ajax.call(o);
-		}	
+		}
 	}
 })();
 
 /***************************************************************************
  * JSON PARSER
- * 
+ *
  * http://json.org
  ***************************************************************************/
 Railo.Json = (function(){
 	 var JSON = {};
 	(function () {
-	
+
 	    function f(n) {
 	        return n < 10 ? '0' + n : n;
 	    }
-	
+
 	    if (typeof Date.prototype.toJSON !== 'function') {
-	
+
 	        Date.prototype.toJSON = function (key) {
-	
+
 	            return this.getUTCFullYear()   + '-' +
 	                 f(this.getUTCMonth() + 1) + '-' +
 	                 f(this.getUTCDate())      + 'T' +
@@ -1403,19 +1403,19 @@ Railo.Json = (function(){
 	                 f(this.getUTCMinutes())   + ':' +
 	                 f(this.getUTCSeconds())   + 'Z';
 	        };
-	
+
 	        String.prototype.toJSON =
 	        Number.prototype.toJSON =
 	        Boolean.prototype.toJSON = function (key) {
 	            return this.valueOf();
 	        };
 	    }
-	
+
 	    var cx = /[\u0000\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,
 	        escapable = /[\\\"\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,
 	        gap,
 	        indent,
-	        meta = {    
+	        meta = {
 	            '\b': '\\b',
 	            '\t': '\\t',
 	            '\n': '\\n',
@@ -1425,10 +1425,10 @@ Railo.Json = (function(){
 	            '\\': '\\\\'
 	        },
 	        rep;
-	
-	
+
+
 	    function quote(string) {
-	
+
 	        escapable.lastIndex = 0;
 	        return escapable.test(string) ?
 	            '"' + string.replace(escapable, function (a) {
@@ -1438,54 +1438,54 @@ Railo.Json = (function(){
 	            }) + '"' :
 	            '"' + string + '"';
 	    }
-	
-	
+
+
 	    function str(key, holder) {
-	
-	        var i, 
-	            k, 
-	            v,  
+
+	        var i,
+	            k,
+	            v,
 	            length,
 	            mind = gap,
 	            partial,
 	            value = holder[key];
-	
+
 	        if (value && typeof value === 'object' &&
 	                typeof value.toJSON === 'function') {
 	            value = value.toJSON(key);
 	        }
-	
+
 	        if (typeof rep === 'function') {
 	            value = rep.call(holder, key, value);
 	        }
 	        switch (typeof value) {
 	        case 'string':
 	            return quote(value);
-	
+
 	        case 'number':
-	
+
 	            return isFinite(value) ? String(value) : 'null';
-	
+
 	        case 'boolean':
 	        case 'null':
-			
+
 	            return String(value);
-	
+
 	        case 'object':
-	
+
 	            if (!value) {
 	                return 'null';
 	            }
 	            gap += indent;
 	            partial = [];
-	
+
 	            if (Object.prototype.toString.apply(value) === '[object Array]') {
-	
+
 	                length = value.length;
 	                for (i = 0; i < length; i += 1) {
 	                    partial[i] = str(i, value) || 'null';
 	                }
-	
+
 	                v = partial.length === 0 ? '[]' :
 	                    gap ? '[\n' + gap +
 	                            partial.join(',\n' + gap) + '\n' +
@@ -1531,7 +1531,7 @@ Railo.Json = (function(){
 	                for (i = 0; i < space; i += 1) {
 	                    indent += ' ';
 	                }
-	
+
 	            } else if (typeof space === 'string') {
 	                indent = space;
 	            }
@@ -1547,7 +1547,7 @@ Railo.Json = (function(){
 	    if (typeof JSON.parse !== 'function') {
 	        JSON.parse = function (text, reviver) {
 	            var j;
-	
+
 	            function walk(holder, key) {
 	                var k, v, value = holder[key];
 	                if (value && typeof value === 'object') {
@@ -1564,7 +1564,7 @@ Railo.Json = (function(){
 	                }
 	                return reviver.call(holder, key, value);
 	            }
-	
+
 	            cx.lastIndex = 0;
 	            if (cx.test(text)) {
 	                text = text.replace(cx, function (a) {
@@ -1591,7 +1591,7 @@ Railo.Json = (function(){
 		decode: function(o){
 			return JSON.parse(o);
 		}
-		
+
 	}
 })();
 
@@ -1600,16 +1600,16 @@ Railo.Json = (function(){
  * Railo.Util
  **********************************************************************************************/
 Railo.Util = {
-	
+
 	template : function(s,d){
 		for(i=0; i < d.length; i++){
 			var r = '{([^{\\' + i + '}]*)}';
 			var x = new RegExp(r);
 			s = s.replace(x,d[i]);
-		}		
-		return s;			
+		}
+		return s;
 	},
-	
+
 	/*
 	 * Add Dom Events
 	 */
@@ -1621,7 +1621,7 @@ Railo.Util = {
   		}else
     		obj.addEventListener( type, fn, false );
 	},
-	
+
 	/*
 	 * Remove Dom Events
 	 */
@@ -1632,9 +1632,9 @@ Railo.Util = {
   		} else
     		obj.removeEventListener( type, fn, false );
 	},
-	
+
 	/**
-	 * 
+	 *
 	 * @param {String} s
 	 */
 	isUrl : function(s) {
@@ -1643,20 +1643,20 @@ Railo.Util = {
 	},
 
 	/**
-	 * 
+	 *
 	 * @param {String} s
 	 */
 	isEmail : function(s) {
 		var regexp = /^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9]{2,4})+$/
 		return regexp.test(s);
 	},
-	
-	
+
+
 	/**
 	 * Search a match into an array. Return false or a set of matching nodes.
 	 * @param {Array} arr
 	 * @param {Object} searchStr
-	 */	
+	 */
 	arrayFind :  function(arr,searchStr) {
 		var returnArray = false;
 		for (i=0; i<arr.length; i++) {
